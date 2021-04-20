@@ -1,0 +1,14 @@
+0.b1.E      0
+1.b1.E      0
+2.p1.c2.b1.E      0
+0.p1.c2.b1.E      0
+3.b2.p1.c2.b1.E      0
+2.p1.c1.b3.b2.p1.c2.b1.E      0
+0.p1.c1.b3.b2.p1.c2.b1.E      0
+3.b2.p1.c1.b3.b2.p1.c2.b1.E      0
+2.p1.c1.b3.b2.p1.c1.b3.b2.p1.c2.b1.E      0
+0.p1.c1.b3.b2.p1.c1.b3.b2.p1.c2.b1.E      0
+3.b2.p1.c1.b3.b2.p1.c1.b3.b2.p1.c2.b1.E      0
+2.p1.c1.b3.b2.p1.c1.b3.b2.p1.c1.b3.b2.p1.c2.b1.E      1
+0.p1.c1.b3.b2.p1.c1.b3.b2.p1.c1.b3.b2.p1.c2.b1.E      0
+3.b2.p1.c1.b3.b2.p1.c1.b3.b2.p1.c1.b3.b2.p1.c2.b1.E      0

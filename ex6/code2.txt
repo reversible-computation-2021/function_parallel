@@ -1,0 +1,50 @@
+block b1
+alloc 0
+alloc 1
+label
+proc p1
+fork a1
+par 0
+block b2
+ipush 1
+load 0
+op 0
+store 0
+end b2
+par 1
+par 0
+block b3
+ipush 1
+load 1
+op 3
+jpc
+jmp
+label
+block b4
+ipush 1
+load 1
+op 1
+store 1
+ipush 0
+store 0
+call c1
+ret_call c1
+end b4
+jmp
+label
+nop
+label
+end b3
+par 1
+merge a1
+return p1
+label
+ipush 0
+store 0
+ipush 5
+store 1
+call c2
+ret_call c2
+free 1
+free 0
+end b1

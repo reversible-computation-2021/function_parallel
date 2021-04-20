@@ -1,0 +1,50 @@
+\documentclass{jarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{bussproofs}
+\usepackage{setspace}
+
+\usepackage{amssymb,amsmath}
+
+\makeatletter
+\newcommand\xleftrightarrow[2][]{%
+  \ext@arrow 9999{\longleftrightarrowfill@}{#1}{#2}}
+\newcommand\longleftrightarrowfill@{%
+  \arrowfill@\leftarrow\relbar\rightarrow}
+\makeatother
+
+
+\begin{document}
+\begin{flushleft}
+
+対象言語
+
+$P ::= begin\ bn\ BB\ end$
+
+\ \ \ \ \ \ \ $|$ par an $P(\parallel P)^+$ $rap$
+
+\ \ \ \ \ \ \ $|$ $S$
+
+$BB\ ::=\ DV\ DP\ DF\ P(;P)^+\ RV$
+
+$S\ ::=\ skip\ |\  X = E\ |\ if\ C\ then\ P\ else\ P\ fi\ |$
+
+$\ \ \ \ \ \ \ \ \ \  while\ wn\ C\ do\ P\ od\ |\ call\ cn\ a(X)$
+
+$DV\ ::=\ (var\ X;)^*$
+
+$DP\ ::=\ (proc\ pn\ a(X)\ is\ P\ end)^*$
+
+$DF\ ::=\ (func\ fn\ b(X)\ is\ P\ return)^*$
+
+$RV\ ::=\ (remove\ X;)^*$
+
+$E\ ::=\ X\ |\ n\ |\ (E)\ |\ E\ op\ E | \{cn\ b(X)\}$
+
+$C\ ::=\ B\ |\ C\ \&\& \ C\ |\ not\ C\ |\ (C)$
+
+$B\ ::=\ E\ ==\ E\ |\ E\ ＞\ E$
+
+
+
+\end{flushleft}
+\end{document}

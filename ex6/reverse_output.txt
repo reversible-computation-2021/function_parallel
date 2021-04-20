@@ -1,0 +1,1051 @@
+~~~~~~~~Process0 execute~~~~~~~~
+path : E
+pc = 1(54)   command =    block:15    operand = 1
+shared variable stack: []
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 2(53)   command =    alloc:11    operand = 0
+shared variable stack: [1]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 3(52)   command =    alloc:11    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 4(51)   command =    block:15    operand = 2
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : c2.b1.E
+pc = 5(50)   command =     rjmp:8    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : c2.b1.E
+pc = 13(42)   command =     proc:13    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : p1.c2.b1.E
+pc = 14(41)   command =     fork:17    operand = 1
+~~~~~~~~Process0.1 execute~~~~~~~~
+path : p1.c2.b1.E
+pc = 42(13)   command =    block:15    operand = 2
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : p1.c2.b1.E
+pc = 16(39)   command =    block:15    operand = 3
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b3.p1.c2.b1.E
+pc = 17(38)   command =     rjmp:8    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b3.p1.c2.b1.E
+pc = 20(35)   command =    label:7    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b3.p1.c2.b1.E
+pc = 21(34)   command =    block:15    operand = 4
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b4.b3.p1.c2.b1.E
+pc = 22(33)   command =    block:15    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c2.b1.E
+pc = 23(32)   command =     rjmp:8    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c2.b1.E
+pc = 13(42)   command =     proc:13    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c2.b1.E
+pc = 14(41)   command =     fork:17    operand = 1
+~~~~~~~~Process0.2.1 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c2.b1.E
+pc = 42(13)   command =    block:15    operand = 2
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c2.b1.E
+pc = 16(39)   command =    block:15    operand = 3
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 17(38)   command =     rjmp:8    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 20(35)   command =    label:7    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 21(34)   command =    block:15    operand = 4
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 22(33)   command =    block:15    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 23(32)   command =     rjmp:8    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 13(42)   command =     proc:13    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 14(41)   command =     fork:17    operand = 1
+~~~~~~~~Process0.2.2.1 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 42(13)   command =    block:15    operand = 2
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 16(39)   command =    block:15    operand = 3
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 17(38)   command =     rjmp:8    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 20(35)   command =    label:7    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 21(34)   command =    block:15    operand = 4
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 22(33)   command =    block:15    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 23(32)   command =     rjmp:8    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 13(42)   command =     proc:13    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 14(41)   command =     fork:17    operand = 1
+~~~~~~~~Process0.2.2.2.1 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 42(13)   command =    block:15    operand = 2
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 16(39)   command =    block:15    operand = 3
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 17(38)   command =     rjmp:8    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 20(35)   command =    label:7    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 21(34)   command =    block:15    operand = 4
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 22(33)   command =    block:15    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 23(32)   command =     rjmp:8    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 13(42)   command =     proc:13    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 14(41)   command =     fork:17    operand = 1
+~~~~~~~~Process0.2.2.2.2.1 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 42(13)   command =    block:15    operand = 2
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 16(39)   command =    block:15    operand = 3
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 17(38)   command =     rjmp:8    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 20(35)   command =    label:7    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 21(34)   command =    block:15    operand = 4
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 22(33)   command =    block:15    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 23(32)   command =     rjmp:8    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 13(42)   command =     proc:13    operand = 1
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 14(41)   command =     fork:17    operand = 1
+~~~~~~~~Process0.2.2.2.2.2.1 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 42(13)   command =    block:15    operand = 2
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 43(12)   command =   restore:9    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 44(11)   command =      nop:0    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 45(10)   command =      nop:0    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 46(9)   command =      nop:0    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 47(8)   command =      end:16    operand = 2
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.1 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 16(39)   command =    block:15    operand = 3
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 17(38)   command =     rjmp:8    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 18(37)   command =      nop:0    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 19(36)   command =     rjmp:8    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 34(21)   command =    label:7    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 35(20)   command =    label:7    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 36(19)   command =      nop:0    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 37(18)   command =      nop:0    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 38(17)   command =      nop:0    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 39(16)   command =      end:16    operand = 3
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 40(15)   command =      par:10    operand = 1
+shared variable stack: [0, 0]
+
+---fork end--- (process 0.2.2.2.2.2)
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 49(6)   command =    merge:18    operand = 1
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 50(5)   command =      ret:14    operand = 1
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 24(31)   command =    label:7    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 25(30)   command =      end:16    operand = 1
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 26(29)   command =   restore:9    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 27(28)   command =      nop:0    operand = 0
+shared variable stack: [1, 0]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 28(27)   command =   restore:9    operand = 1
+shared variable stack: [1, 1]
+
+~~~~~~~~Process0.2.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 43(12)   command =   restore:9    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 29(26)   command =      nop:0    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 44(11)   command =      nop:0    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 30(25)   command =      nop:0    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 45(10)   command =      nop:0    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 31(24)   command =      nop:0    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 46(9)   command =      nop:0    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 32(23)   command =      end:16    operand = 4
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 47(8)   command =      end:16    operand = 2
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 33(22)   command =     rjmp:8    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.1 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 35(20)   command =    label:7    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 36(19)   command =      nop:0    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 37(18)   command =      nop:0    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 38(17)   command =      nop:0    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 39(16)   command =      end:16    operand = 3
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 40(15)   command =      par:10    operand = 1
+shared variable stack: [0, 1]
+
+---fork end--- (process 0.2.2.2.2)
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 49(6)   command =    merge:18    operand = 1
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 50(5)   command =      ret:14    operand = 1
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 24(31)   command =    label:7    operand = 0
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 25(30)   command =      end:16    operand = 1
+shared variable stack: [0, 1]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 26(29)   command =   restore:9    operand = 0
+shared variable stack: [1, 1]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 27(28)   command =      nop:0    operand = 0
+shared variable stack: [1, 1]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 28(27)   command =   restore:9    operand = 1
+shared variable stack: [1, 2]
+
+~~~~~~~~Process0.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 43(12)   command =   restore:9    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 29(26)   command =      nop:0    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 44(11)   command =      nop:0    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 30(25)   command =      nop:0    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 45(10)   command =      nop:0    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 31(24)   command =      nop:0    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 46(9)   command =      nop:0    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 32(23)   command =      end:16    operand = 4
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 47(8)   command =      end:16    operand = 2
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 33(22)   command =     rjmp:8    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.1 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 35(20)   command =    label:7    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 36(19)   command =      nop:0    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 37(18)   command =      nop:0    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 38(17)   command =      nop:0    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 39(16)   command =      end:16    operand = 3
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 40(15)   command =      par:10    operand = 1
+shared variable stack: [0, 2]
+
+---fork end--- (process 0.2.2.2)
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 49(6)   command =    merge:18    operand = 1
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 50(5)   command =      ret:14    operand = 1
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 24(31)   command =    label:7    operand = 0
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 25(30)   command =      end:16    operand = 1
+shared variable stack: [0, 2]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 26(29)   command =   restore:9    operand = 0
+shared variable stack: [1, 2]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 27(28)   command =      nop:0    operand = 0
+shared variable stack: [1, 2]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 28(27)   command =   restore:9    operand = 1
+shared variable stack: [1, 3]
+
+~~~~~~~~Process0.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 43(12)   command =   restore:9    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 29(26)   command =      nop:0    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 44(11)   command =      nop:0    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 30(25)   command =      nop:0    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 45(10)   command =      nop:0    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 31(24)   command =      nop:0    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 46(9)   command =      nop:0    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 32(23)   command =      end:16    operand = 4
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 47(8)   command =      end:16    operand = 2
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 33(22)   command =     rjmp:8    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.1 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 35(20)   command =    label:7    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 36(19)   command =      nop:0    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 37(18)   command =      nop:0    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 38(17)   command =      nop:0    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 39(16)   command =      end:16    operand = 3
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 40(15)   command =      par:10    operand = 1
+shared variable stack: [0, 3]
+
+---fork end--- (process 0.2.2)
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 49(6)   command =    merge:18    operand = 1
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 50(5)   command =      ret:14    operand = 1
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 24(31)   command =    label:7    operand = 0
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 25(30)   command =      end:16    operand = 1
+shared variable stack: [0, 3]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 26(29)   command =   restore:9    operand = 0
+shared variable stack: [1, 3]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 27(28)   command =      nop:0    operand = 0
+shared variable stack: [1, 3]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 28(27)   command =   restore:9    operand = 1
+shared variable stack: [1, 4]
+
+~~~~~~~~Process0.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c2.b1.E
+pc = 43(12)   command =   restore:9    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 29(26)   command =      nop:0    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c2.b1.E
+pc = 44(11)   command =      nop:0    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 30(25)   command =      nop:0    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c2.b1.E
+pc = 45(10)   command =      nop:0    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 31(24)   command =      nop:0    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c2.b1.E
+pc = 46(9)   command =      nop:0    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b4.b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 32(23)   command =      end:16    operand = 4
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.1 execute~~~~~~~~
+path : b2.p1.c1.b4.b3.p1.c2.b1.E
+pc = 47(8)   command =      end:16    operand = 2
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 33(22)   command =     rjmp:8    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.1 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 35(20)   command =    label:7    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 36(19)   command =      nop:0    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 37(18)   command =      nop:0    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 38(17)   command =      nop:0    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : b3.p1.c1.b4.b3.p1.c2.b1.E
+pc = 39(16)   command =      end:16    operand = 3
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c2.b1.E
+pc = 40(15)   command =      par:10    operand = 1
+shared variable stack: [0, 4]
+
+---fork end--- (process 0.2)
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c2.b1.E
+pc = 49(6)   command =    merge:18    operand = 1
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : p1.c1.b4.b3.p1.c2.b1.E
+pc = 50(5)   command =      ret:14    operand = 1
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c2.b1.E
+pc = 24(31)   command =    label:7    operand = 0
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : c1.b4.b3.p1.c2.b1.E
+pc = 25(30)   command =      end:16    operand = 1
+shared variable stack: [0, 4]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b4.b3.p1.c2.b1.E
+pc = 26(29)   command =   restore:9    operand = 0
+shared variable stack: [1, 4]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b4.b3.p1.c2.b1.E
+pc = 27(28)   command =      nop:0    operand = 0
+shared variable stack: [1, 4]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b4.b3.p1.c2.b1.E
+pc = 28(27)   command =   restore:9    operand = 1
+shared variable stack: [1, 5]
+
+~~~~~~~~Process0.1 execute~~~~~~~~
+path : b2.p1.c2.b1.E
+pc = 43(12)   command =   restore:9    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b4.b3.p1.c2.b1.E
+pc = 29(26)   command =      nop:0    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.1 execute~~~~~~~~
+path : b2.p1.c2.b1.E
+pc = 44(11)   command =      nop:0    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b4.b3.p1.c2.b1.E
+pc = 30(25)   command =      nop:0    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.1 execute~~~~~~~~
+path : b2.p1.c2.b1.E
+pc = 45(10)   command =      nop:0    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b4.b3.p1.c2.b1.E
+pc = 31(24)   command =      nop:0    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.1 execute~~~~~~~~
+path : b2.p1.c2.b1.E
+pc = 46(9)   command =      nop:0    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b4.b3.p1.c2.b1.E
+pc = 32(23)   command =      end:16    operand = 4
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.1 execute~~~~~~~~
+path : b2.p1.c2.b1.E
+pc = 47(8)   command =      end:16    operand = 2
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b3.p1.c2.b1.E
+pc = 33(22)   command =     rjmp:8    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.1 execute~~~~~~~~
+path : p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b3.p1.c2.b1.E
+pc = 35(20)   command =    label:7    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b3.p1.c2.b1.E
+pc = 36(19)   command =      nop:0    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b3.p1.c2.b1.E
+pc = 37(18)   command =      nop:0    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b3.p1.c2.b1.E
+pc = 38(17)   command =      nop:0    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : b3.p1.c2.b1.E
+pc = 39(16)   command =      end:16    operand = 3
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0.2 execute~~~~~~~~
+path : p1.c2.b1.E
+pc = 40(15)   command =      par:10    operand = 1
+shared variable stack: [0, 5]
+
+---fork end--- (process 0)
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : p1.c2.b1.E
+pc = 48(7)   command =      par:10    operand = 1
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : p1.c2.b1.E
+pc = 49(6)   command =    merge:18    operand = 1
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : p1.c2.b1.E
+pc = 50(5)   command =      ret:14    operand = 1
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : c2.b1.E
+pc = 6(49)   command =    label:7    operand = 0
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : c2.b1.E
+pc = 7(48)   command =      end:16    operand = 2
+shared variable stack: [0, 5]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 8(47)   command =   restore:9    operand = 1
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 9(46)   command =      nop:0    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 10(45)   command =   restore:9    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 11(44)   command =      nop:0    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 12(43)   command =     rjmp:8    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 51(4)   command =    label:7    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 52(3)   command =     free:12    operand = 1
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 53(2)   command =     free:12    operand = 0
+shared variable stack: [0, 0]
+
+~~~~~~~~Process0 execute~~~~~~~~
+path : b1.E
+pc = 54(1)   command =      end:16    operand = 1
+shared variable stack: [0, 0]
+

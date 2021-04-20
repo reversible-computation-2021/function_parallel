@@ -1,0 +1,42 @@
+|<CALL> token1=<VARIABLE> token2=<VARIABLE> <LPAREN> token4=<VARIABLE> <RPAREN>
+	{try{
+		int address1 = 0;
+		FileWriter table = new FileWriter("proc_table.txt",true);
+		for(int i=0;i<Parser.count;i++){
+			if(proc_table[i].var.equals(token2.image)){
+				address1 = proc_table[i].address;
+				break;
+			}
+		}
+		table.write(String.format("%3s",token1.image));
+		table.write(String.format("%5d\n",address1));
+		table.close();
+        jlabel2 = Parser.pc;
+		int address2 = 0;
+		for(int i=0;i<Parser.count;i++){
+			if(arr_table[i].var.equals(token4.image)){
+				address2=arr_table[i].address;
+				break;
+			}
+		}
+        FileWriter code = new FileWriter("code.txt",true);
+		code.write(String.format("%2d ",Parser.load));
+		code.write(String.format("%5d\n",address2));
+		++Parser.pc;
+        code.write(String.format("%2d ",Parser.block));
+		code.write(String.format("%5s\n",token1.image));
+		++Parser.pc;
+		code.write(String.format("%2d ",Parser.jmp));
+		code.write(String.format("%5d\n",address1));
+		++Parser.pc;
+		code.write(String.format("%2d ",Parser.label));
+		code.write(String.format("%5d\n",0));
+		++Parser.pc;
+		code.write(String.format("%2d ",Parser.end));
+		code.write(String.format("%5s\n",token1.image));
+		++Parser.pc;
+        code.close();
+	}catch(IOException e){
+		System.err.println("err");
+	}
+    }

@@ -1,0 +1,10 @@
+begin b1
+    var x;
+    func f1 double(x) is
+        begin b2 
+            double = 2 * x
+        end
+    return
+    x = 10;
+    x = {c1 double(x)}
+end
