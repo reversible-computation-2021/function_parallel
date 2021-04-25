@@ -52,14 +52,15 @@ def search_table(opr,process_path):
             s2=re.search(r'([a-z](\d+).)+E',variable_table[i])
             match_count=0
             temp_path=s2.group()
-            for j in reversed(range(0,len(s2.group()),1)):
-                if process_path[j]==temp_path[j]:
-                    match_count=match_count+1
-                else:
-                    break
-            if match_count>=t:
-                address=i
-                t=match_count
+            if len(process_path)>=len(temp_path):
+                for j in reversed(range(0,len(s2.group()),1)):
+                    if process_path[j]==temp_path[j]:
+                        match_count=match_count+1
+                    else:
+                        break
+                if match_count>=t:
+                    address=i
+                    t=match_count
     return address
     
 
@@ -175,6 +176,7 @@ def executedcommand(stack,rstack,lstack,com,opr,pc,pre,top,rtop,ltop,address,val
             tablecount.value=tablecount.value+1
         elif args[2]=='b':
             variable_path=search_table(opr[pc],process_path)
+            variable_region.append(0)
             with open("variable_table.txt",'r') as f:
                 variable_table=f.read().split('\n')
             s=re.search(r'\s(-)?(\d+)',variable_table[variable_path])
@@ -368,7 +370,7 @@ def executedcommand(stack,rstack,lstack,com,opr,pc,pre,top,rtop,ltop,address,val
                     pre=pc
                     #print("-------------process merge---------- now process is "+str(flag_number)+"next pc "+str(int(s2.group())))
                     lock.acquire()
-                    return (count_pc-int(s3.group()),pre,stack,top,rtop,tablecount,process_path)
+                    return (count_pc-int(s3.group())+1,pre,stack,top,rtop,tablecount,process_path)
             for i in range(start_process_count,process_count.value,1):
                 process[i].join()
             a=count_pc-int(s3.group())
@@ -391,7 +393,7 @@ def executedcommand(stack,rstack,lstack,com,opr,pc,pre,top,rtop,ltop,address,val
             push(c,stack,top)
         pre=pc
         #add_path(opr)
-        process_path='p'+str(opr[pc])+'.'+process_path
+        process_path='f'+str(opr[pc])+'.'+process_path
         return (pc+1,pre,stack,top,rtop,tablecount,process_path)
     elif com[pc]==20:#return
         if args[2]=='f':
@@ -584,6 +586,7 @@ def execution(command,opr,start,end,count_pc,stack,address,value,tablecount,rsta
             #    print(process_number)
             #    print(s2.group())
             #    print(str(rtop.value))
+            #print("path: "+str(process_path)+"  num:"+str(process_number)+"  s:"+str(s.group()))
             if (process_number+"."==s2.group() and command[pc]==9) or (process_number+"."==s.group() and (command[pc]==8 or command[pc]==14 or command[pc]==21 or command[pc]==22)) or (command[pc]!=8 and command[pc]!=9 and command[pc]!=14 and command[pc]!=21 and command[pc]!=22):
                 with open("reverse_output.txt",'a') as f:
                     f.write("~~~~~~~~Process"+process_number+" execute~~~~~~~~\n")
@@ -744,10 +747,17 @@ def forward(com,opr,count_pc):
                 bname="b"+str(opr[count_pc-i-1])
             f2.write("15 "+bname.rjust(5)+"\n")
         elif com[count_pc-i-1]==17:
-            f2.write("18 "+str(opr[count_pc-i-1]).rjust(5)+"\n")
+            aname="a"+str(opr[count_pc-i-1])
+            f2.write("18 "+aname.rjust(5)+"\n")
         elif com[count_pc-i-1]==18:
             aname="a"+str(opr[count_pc-i-1])
             f2.write("17 "+aname.rjust(5)+"\n")
+        elif com[count_pc-i-1]==19:
+            fname="f"+str(opr[count_pc-i-1])
+            f2.write("20 "+fname.rjust(5)+"\n")
+        elif com[count_pc-i-1]==20:
+            fname="f"+str(opr[count_pc-i-1])
+            f2.write("19 "+fname.rjust(5)+"\n")
         elif com[count_pc-i-1]==21:
             wname="w"+str(opr[count_pc-i-1])
             f2.write("22 "+wname.rjust(5)+"\n")
