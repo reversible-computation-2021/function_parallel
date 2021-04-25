@@ -1,14 +1,4 @@
 0.b1.E      0
-1.b1.E      0
-2.f1.c2.b1.E      0
-0.f1.c2.b1.E      0
-3.b2.f1.c2.b1.E      0
-2.f1.c1.b3.b2.f1.c2.b1.E      0
-0.f1.c1.b3.b2.f1.c2.b1.E      0
-3.b2.f1.c1.b3.b2.f1.c2.b1.E      0
-2.f1.c1.b3.b2.f1.c1.b3.b2.f1.c2.b1.E      0
-0.f1.c1.b3.b2.f1.c1.b3.b2.f1.c2.b1.E      0
-3.b2.f1.c1.b3.b2.f1.c1.b3.b2.f1.c2.b1.E      0
-2.f1.c1.b3.b2.f1.c1.b3.b2.f1.c1.b3.b2.f1.c2.b1.E      0
-0.f1.c1.b3.b2.f1.c1.b3.b2.f1.c1.b3.b2.f1.c2.b1.E      0
-3.b2.f1.c1.b3.b2.f1.c1.b3.b2.f1.c1.b3.b2.f1.c2.b1.E      0
+1.f1.c1.b3.b1.E      0
+0.f1.c1.b3.b1.E      0
+2.b2.f1.c1.b3.b1.E      0
