@@ -265,6 +265,60 @@ a
 
 \figref{fig:Hannotated}を実行すると\figref{fig:Hexec}のようにプログラム自体にAnnotation及びパスが書き込まれる．\figref{fig:Hexec}では2回目の手続き呼び出しを行ったものであり手続き呼び出しのブロック自体をコピーしそこにAnnotationとパスを書き込んでいる．
 
+
+\begin{figure}[tb]
+\setbox0\vbox{
+\hbox{$inv(\epsilon)=\epsilon$}
+\hbox{$inv(AS;AP)=inv(AP);i(AS)$}
+\hbox{$inv(AP\ par\ AQ)=inv(AP)\ par\ inv(AQ)$}
+\hbox{$i(skip)=skip\ I$}
+\hbox{$i(X=e\ pa)=\ X=e\ (pa,A)$}
+\hbox{$i(if\ In\ n\ then\ AP\ else\ AQ\ end\ pa)=$}
+\hbox{$\ \ \ \ if\ In\ b\ then\ inv(AP)\ else\ inv(AQ)\ end\ (pa,A)$}
+\hbox{$i(while\ Wn\ b\ do\ AP\ end\ pa)=$}
+\hbox{$\ \ \ \ while\ Wn\ b\ do\ inv(AP)\ end\ (pa,A)$}
+\hbox{$i(begin\ Bn\ AP\ end)=begin\ Bn\ inv(AP)\ end$}
+\hbox{$i(var\ X=E\ pa)=var\ X=E\ (pa,A)$}
+\hbox{$i(proc\ Pn\ n\ is\ AP\ end\ pa)=proc\ Pn\ n\ is\ inv(AP)\ end\ (pa,A)$}
+\hbox{$i(call\ Cn\ n\ pa)=call\ Cn\ n\ (pa,A)$}
+\hbox{$i(remove\ X=E\ pa)=remove\ X=E\ (pa,A)$}
+\hbox{$i(remove\ Pn\ n\ is\ AP\ end\ pa)=remove\ Pn\ n\ is\ inv(AP)\ end\ (pa,A)$}
+
+}
+\centerline{\fbox{\box0}}
+\caption{Inverted programの変換規則}
+\ecaption{Inversion function}
+\label{fig:Hinv}
+\end{figure}
+
+\figref{fig:Hinv}に実行されたAnnotated ProgramからInverted Programへの変換規則を示す．\figref{fig:Hinv}のAPやAQはプログラムP，QにAnnotated Programへの変換規則を適用したものである．ASはステートメントSにAnnotated Programへの変換規則を適用したものである．実行されたパス及びAnnotationに逆向き実行に必要な情報が残されておりこの規則に則って作成されたInverted Programを実行することでAnnotated Programの実行を逆順に辿る実行を行う．
+
+\begin{figure}[tb]
+\setbox0\vbox{
+\hbox{\|begin c1:c2:b2|}
+\hbox{\|   var T = 0 (c1:c2:b2*b1,[17]);|}
+\hbox{\|   if c1:c2:i1 (N-2 > 0) then|}
+\hbox{\|     call c2 fib (c1:c2:b2*b1,[15]);|}
+\hbox{\|     N = N - 1 (c1:c2:b2*b1,[11]);|}
+\hbox{\|     S = T (c1:c2:b2*b1,[10]);|}
+\hbox{\|     F = S (c1:c2:b2*b1,[9]);|}
+\hbox{\|     T = F + S (c1:c2:b2*b1,[8]);|}
+\hbox{\|     F = S (c1:c2:b2*b1,[9]);|}
+\hbox{\|  end (c1:c2:b2*b1,[16])|}
+\hbox{\|  remove T = 0 (c1:c2:b2*b1,[7]);|}
+\hbox{\|end|}
+}
+\centerline{\fbox{\box0}}
+\caption{Inverted プログラム\\
+（2回目の手続き呼び出しの部分）}
+\ecaption{Inverted Program\\
+ (part of second procedure call)}
+\label{fig:Hinvprogram}
+\end{figure}
+
+
+\figref{fig:Hexec}の実行されたAnnotatedプログラムを\figref{fig:Hinv}の変換規則に則ってInverted Programへ変換したものが\figref{fig:Hinvprogram}である．Annotationの数字がそのステートメントが実行された順番を表していてAnnotationに書かれている最大の値から始めて一つずつAnnotationに書かれている数字を遡っていくことでAnnotated Programで行った順方向の実行を逆方向に辿る実行を行うことができる．
+
 %3
 \section{並列プログラミング言語}
 
