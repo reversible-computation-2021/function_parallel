@@ -112,6 +112,9 @@ a
 \section{はじめに}
 
 
+
+
+
 %2
 \section{関連研究}
 
@@ -151,170 +154,24 @@ a
 
 \figref{fig:Annf}でAnnotationの適用規則を示す．対象プログラム$P$からAnnotatedプログラム$AP$への変換は変換規則$a(),ann()$に則って行われる．
 
-\begin{figure}[tb]
-\setbox0\vbox{
-\hbox{$ann(\epsilon)=\epsilon$}
-\hbox{$ann(S;P)=a(S);ann(P)$}
-\hbox{$ann(P\ par\ Q)=ann(P)\ par\ ann(Q)$}
-\hbox{$a(skip)=skip\ I$}
-\hbox{$a(X=e\ pa)=\ X=e\ (pa,A)$}
-\hbox{$a(if\ In\ n\ then\ P\ else\ Q\ end\ pa)=$}
-\hbox{$\ \ \ \ if\ In\ b\ then\ ann(P)\ else\ ann(Q)\ end\ (pa,A)$}
-\hbox{$a(while\ Wn\ b\ do\ P\ end\ pa)=$}
-\hbox{$\ \ \ \ while\ Wn\ b\ do\ ann(P)\ end\ (pa,A)$}
-\hbox{$a(begin\ Bn\ P\ end)=begin\ Bn\ ann(P)\ end$}
-\hbox{$a(var\ X=E\ pa)=var\ X=E\ (pa,A)$}
-\hbox{$a(proc\ Pn\ n\ is\ P\ end\ pa)=proc\ Pn\ n\ is\ ann(P)\ end\ (pa,A)$}
-\hbox{$a(call\ Cn\ n\ pa)=call\ Cn\ n\ (pa,A)$}
-\hbox{$a(runc\ Cn\ P\ end)=runc\ Cn\ AP\ end\ A$}
-\hbox{$a(remove\ X=E\ pa)=remove\ X=E\ (pa,A)$}
-\hbox{$a(remove\ Pn\ n\ is\ P\ end\ pa)=remove\ Pn\ n\ is\ ann(P)\ end\ (pa,A)$}
-
-}
-\centerline{\fbox{\box0}}
-\caption{Annotated programの変換規則}
-\ecaption{Annotation function}
-\label{fig:Annf}
-\end{figure}
 
 
-\begin{figure}[tb]
-\begin{center}
-\begin{tabular}{c}
-\begin{minipage}[t]{0.5\columnwidth}
-\footnotesize
-\setbox0\vbox{
-\hbox{\|begin b1|}
-\hbox{\|   proc p1 fib is|}
-\hbox{\|   begin b2|}
-\hbox{\|      var T = 0 b2;|}
-\hbox{\|      if i1 (N-2 > 0) then|}
-\hbox{\|         T = F + S b2;|}
-\hbox{\|         F = S b2;|}
-\hbox{\|         S = T b2;|}
-\hbox{\|         N = N - 1 b2;|}
-\hbox{\|       call c2 fib b2;|}
-\hbox{\|    end b2|}
-\hbox{\|    remove T = 0 b2;|}
-\hbox{\|  end|}
-\hbox{\|  b1|}
-\hbox{\|  call c1fib is P b1;|}
-\hbox{\|  remove p1 fib is P b1;|}
-\hbox{\|end|}
-}
-\centerline{\fbox{\box0}}
-\caption{対象プログラム}
-\ecaption{Original Program}
-\label{fig:Horiginal}
-\end{minipage}
 
-\begin{minipage}[t]{0.5\columnwidth}
-\footnotesize
-\setbox0\vbox{
-\hbox{\|begin b1|}
-\hbox{\|   proc p1 fib is|}
-\hbox{\|   begin b2|}
-\hbox{\|      var T = 0 (b2*b1,A);|}
-\hbox{\|      if i1 (N-2 > 0) then|}
-\hbox{\|         T = F + S (b2*b1,A);|}
-\hbox{\|         F = S (b2*b1,A);|}
-\hbox{\|         S = T (b2*b1,A);|}
-\hbox{\|         N = N - 1 (b2*b1,A);|}
-\hbox{\|       call c2 fib (b2*b1,A);|}
-\hbox{\|    end (b2*b1,A)|}
-\hbox{\|    remove T = 0 (b2*b1,A);|}
-\hbox{\|  end|}
-\hbox{\|  (b1,A)|}
-\hbox{\|  call c1fib is P (b1,A);|}
-\hbox{\|  remove p1 fib is P (b1,A);|}
-\hbox{\|end|}
-}
-\centerline{\fbox{\box0}}
-\caption{Annotated プログラム}
-\ecaption{Annotated Program}
-\label{fig:Hannotated}
-\end{minipage}
-\end{tabular}
-\end{center}
-\end{figure}
+
 
 \figref{fig:Horiginal}のプログラムから\figref{fig:Hannotated}のプログラムがAnnotatedプログラムの変換規則に則って生成される．この時，手続きp1内のステートメントはブロックb1内のブロックb2に存在しているのでこれらのステートメントのパスはb2*b1に変換する．Annotatedプログラムにはそれぞれのステートメントに識別子を書き込むためにスタックAを書き加えている．
 
 
-\begin{figure}[tb]
-\setbox0\vbox{
-\hbox{\|begin c1:c2:b2|}
-\hbox{\|   var T = 0 (c1:c2:b2*b1,[7]);|}
-\hbox{\|   if c1:c2:i1 (N-2 > 0) then|}
-\hbox{\|     T = F + S (c1:c2:b2*b1,[8]);|}
-\hbox{\|     F = S (c1:c2:b2*b1,[9]);|}
-\hbox{\|     S = T (c1:c2:b2*b1,[10]);|}
-\hbox{\|     N = N - 1 (c1:c2:b2*b1,[11]);|}
-\hbox{\|     call c2 fib (c1:c2:b2*b1,[15]);|}
-\hbox{\|  end (c1:c2:b2*b1,[16])|}
-\hbox{\|  remove T = 0 (c1:c2:b2*b1,[17]);|}
-\hbox{\|end|}
-}
-\centerline{\fbox{\box0}}
-\caption{実行されたAnnotatedプログラム\\
-（2回目の手続き呼び出しの部分）}
-\ecaption{Executed Annotated Program\\
- (part of second procedure call)}
-\label{fig:Hexec}
-\end{figure}
+
 
 \figref{fig:Hannotated}を実行すると\figref{fig:Hexec}のようにプログラム自体にAnnotation及びパスが書き込まれる．\figref{fig:Hexec}では2回目の手続き呼び出しを行ったものであり手続き呼び出しのブロック自体をコピーしそこにAnnotationとパスを書き込んでいる．
 
 
-\begin{figure}[tb]
-\setbox0\vbox{
-\hbox{$inv(\epsilon)=\epsilon$}
-\hbox{$inv(AS;AP)=inv(AP);i(AS)$}
-\hbox{$inv(AP\ par\ AQ)=inv(AP)\ par\ inv(AQ)$}
-\hbox{$i(skip)=skip\ I$}
-\hbox{$i(X=e\ pa)=\ X=e\ (pa,A)$}
-\hbox{$i(if\ In\ n\ then\ AP\ else\ AQ\ end\ pa)=$}
-\hbox{$\ \ \ \ if\ In\ b\ then\ inv(AP)\ else\ inv(AQ)\ end\ (pa,A)$}
-\hbox{$i(while\ Wn\ b\ do\ AP\ end\ pa)=$}
-\hbox{$\ \ \ \ while\ Wn\ b\ do\ inv(AP)\ end\ (pa,A)$}
-\hbox{$i(begin\ Bn\ AP\ end)=begin\ Bn\ inv(AP)\ end$}
-\hbox{$i(var\ X=E\ pa)=var\ X=E\ (pa,A)$}
-\hbox{$i(proc\ Pn\ n\ is\ AP\ end\ pa)=proc\ Pn\ n\ is\ inv(AP)\ end\ (pa,A)$}
-\hbox{$i(call\ Cn\ n\ pa)=call\ Cn\ n\ (pa,A)$}
-\hbox{$i(remove\ X=E\ pa)=remove\ X=E\ (pa,A)$}
-\hbox{$i(remove\ Pn\ n\ is\ AP\ end\ pa)=remove\ Pn\ n\ is\ inv(AP)\ end\ (pa,A)$}
 
-}
-\centerline{\fbox{\box0}}
-\caption{Inverted programの変換規則}
-\ecaption{Inversion function}
-\label{fig:Hinv}
-\end{figure}
 
 \figref{fig:Hinv}に実行されたAnnotated ProgramからInverted Programへの変換規則を示す．\figref{fig:Hinv}のAPやAQはプログラムP，QにAnnotated Programへの変換規則を適用したものである．ASはステートメントSにAnnotated Programへの変換規則を適用したものである．実行されたパス及びAnnotationに逆向き実行に必要な情報が残されておりこの規則に則って作成されたInverted Programを実行することでAnnotated Programの実行を逆順に辿る実行を行う．
 
-\begin{figure}[tb]
-\setbox0\vbox{
-\hbox{\|begin c1:c2:b2|}
-\hbox{\|   var T = 0 (c1:c2:b2*b1,[17]);|}
-\hbox{\|   if c1:c2:i1 (N-2 > 0) then|}
-\hbox{\|     call c2 fib (c1:c2:b2*b1,[15]);|}
-\hbox{\|     N = N - 1 (c1:c2:b2*b1,[11]);|}
-\hbox{\|     S = T (c1:c2:b2*b1,[10]);|}
-\hbox{\|     F = S (c1:c2:b2*b1,[9]);|}
-\hbox{\|     T = F + S (c1:c2:b2*b1,[8]);|}
-\hbox{\|     F = S (c1:c2:b2*b1,[9]);|}
-\hbox{\|  end (c1:c2:b2*b1,[16])|}
-\hbox{\|  remove T = 0 (c1:c2:b2*b1,[7]);|}
-\hbox{\|end|}
-}
-\centerline{\fbox{\box0}}
-\caption{Inverted プログラム\\
-（2回目の手続き呼び出しの部分）}
-\ecaption{Inverted Program\\
- (part of second procedure call)}
-\label{fig:Hinvprogram}
-\end{figure}
+
 
 
 \figref{fig:Hexec}の実行されたAnnotatedプログラムを\figref{fig:Hinv}の変換規則に則ってInverted Programへ変換したものが\figref{fig:Hinvprogram}である．Annotationの数字がそのステートメントが実行された順番を表していてAnnotationに書かれている最大の値から始めて一つずつAnnotationに書かれている数字を遡っていくことでAnnotated Programで行った順方向の実行を逆方向に辿る実行を行うことができる．
@@ -322,11 +179,7 @@ a
 %3
 \section{並列プログラミング言語}
 
-本章では本論文において対象とするプログラミング言語についてその定義と仕様，および抽象機械命令の仕様について説明する．対象とするプログラミング言語はwhileループやif文，手続き呼び出しのブロック，関数呼び出しのブロック，および並列ブロックを持つプログラミング言語である．このプログラミング言語に従って作成したプログラムを抽象機械命令に変換することで抽象機械によって実行する．プログラミング言語の定義として手続き呼び出しのブロックなどの各ブロックに手続き名などとは別にブロックの名前を付ける．このブロックの名前を繋げたものを参照情報を表すパスとすることで局所変数を実現している．
-
-このプログラムにおいて並列ブロックはparから始まり，各ブロックを$||$の記号で区切り，rapで終わるように記述する．並列ブロックを含むプログラムから抽象機会命令に変換する際にそれぞれの並列ブロックの開始番地と終了番地を記録したテーブルを作成する．そのテーブルを参照し並列ブロックを起動することで順方向，逆方向ともに並列の入れ子構造を実現している．
-
-抽象機械命令について，対象言語に従って作成されたプログラムをコンパイラによってそれぞれのステートメントを抽象機械命令に変換し順方向の抽象機械のバイトコードを作成する．逆方向のバイトコードは順方向のバイトコードの抽象機械命令を一対一で変換し順序を反転させることで作成する．コンパイラはJavaCCを用いて作成した．
+対象とする並列プログラミング言語はwhileループやif文，手続き呼び出しのブロック，関数呼び出しのブロック，および並列ブロックを持つプログラミング言語である．ソースプログラムを抽象機械命令に変換することで抽象機械によって実行する．並列ブロックはparから始まり，各ブロックを$||$の記号で区切り，rapで終わる．
 
 %3.1
 \subsection{対象言語の定義}
@@ -358,13 +211,13 @@ a
 \end{figure}
 
 
-対象言語の定義を\figref{fig:def}に示す．対象言語の定義は拡張bnfによって記述した．$bn,an,wn,pn,fn,cn$はそれぞれのブロックの名前を示している．それぞれnは整数値を表しb1,b2,...のように整数値の部分が被らないように振り分ける．DVは変数の宣言，DPは手続きの宣言，DFは関数の宣言，RVは変数の解放を行うステートメントを示している．あるブロック内で宣言された変数はそのブロック内で必ず宣言した順番とは逆の順番で変数の解放を行うステートメントを記述する必要がある．
+対象言語の定義を\figref{fig:def}に示す．$bn,an,wn,pn,fn,cn$はそれぞれのブロック名を示す．それぞれnは整数値を表しb1,b2,...のように整数値の部分が重複しないとする．DVは変数の宣言，DPは手続きの宣言，DFは関数の宣言，RVは変数の解放を行うステートメントを示している．あるブロック内で宣言された変数はそのブロック内で必ず宣言した順番とは逆の順番で変数の解放を行うステートメントを記述する必要がある．
 
-手続き呼び出しについて，手続きの宣言はprocから始まり，endで終わるように記述する．手続きの引数は変数一つのみとし，値を返すことはしない．callステートメントを記述することで宣言された手続きを呼び出し，その手続きを実行する．
+・手続き呼び出し  手続きの宣言はprocから始まり，endで終わるように記述する．手続きの引数は変数一つのみとし，値を返すことはしない．callステートメントを記述することで宣言された手続きを呼び出し，その手続きを実行する．
 
-関数呼び出しについて，関数の宣言はfuncから始まり，returnで終わるように記述する．関数の引数は変数一つのみとし，値を返す．関数内では関数の名前を変数として扱い演算を行うことができ，returnを行う時点でのその変数の値を返り値として扱う．関数の呼び出しは呼び出しブロック名と関数名および引数を\{\}で囲って記述する．変数や整数と同様に演算の右辺に記述することができる．
+・関数呼び出し  関数の宣言はfuncから始まり，returnで終わるように記述する．関数は簡単のため引数一つとする．関数内では関数の名前を返り値とする．関数の呼び出しは呼び出し名cnと関数名および引数を\{\}で囲って記述する．
 
-\figref{fig:sample}は\figref{fig:def}の定義に従って作成したプログラム例である．ブロックb1内で変数の宣言，手続きのairlineの宣言を行い，メインの処理として変数の値割り当て，手続きairlineの呼び出しを行い，最後に最初に宣言した変数の解放を行うプログラムである．
+\figref{fig:sample}にプログラム例を示す．ブロックb1内で変数の宣言，手続きのairlineの宣言を行い，メインの処理として変数の値割り当て，手続きairlineの呼び出しを行い，最後に最初に宣言した変数の解放を行うプログラムである．agent1とagent2が並列にseatsのチケットを売りseatsが0になったら終了する．seatsが0であるときにseatsが0より大きいという条件判定が同時に行われてしまうと存在しない0枚目のseatsを売ることになりseatsの値が-1になってしまうという望ましくない動作が生じる．
 
 
 \begin{figure}[tb]
@@ -414,121 +267,231 @@ a
 \subsection{可逆抽象機械}
 \label{sec:format}
 
-本研究では，\figref{fig:def}の定義に従って作成された\figref{fig:sample}のようなプログラムを各ステートメントをそれぞれ抽象機械命令に変換し抽象機械のバイトコードを作成する．実装としては対象のプログラムをコンパイラによって変換しバイトコードを作成する．このバイトコードをプロセスにおいて固有の演算用のスタックとプロセス間で共有の共有変数スタックを持つ抽象機械によって実行することでプログラムに書かれたステートメントを順方向に実行する．順方向実行時に逆向き実行に必要な情報を保存する．これについては４章で詳しく示す．
+プログラムを抽象機械のバイトコードに変換する．このバイトコードをプロセスにおいて固有の演算用のスタックとプロセス間で共有の共有変数スタックを持つ抽象機械によって実行することでプログラムに書かれたステートメントを順方向に実行する．順方向実行時に逆向き実行に必要な情報を保存する．
 
-逆方向のバイトコードは順方向のバイトコードの抽象命令をそれぞれ対応した抽象命令に一対一で変換し順序を反転させることで作成する．この逆方向のバイトコードと順方向実行時に保存した逆方向実行に必要な情報を使って抽象機械によって実行することで順方向の実行を逆方向に辿る実行をする．
+
 
 
 %3.3.1
-\subsubsection{順方向抽象機械命令}
+\subsubsection{抽象機械の定義}
 
+順方向の抽象機械命令セットを\tabref{tab:forwardinstruction}に示す．各命令に対する説明を\tabref{tab:expfor}に示す．
 
-順方向の抽象命令セットを以下に示す．
+逆方向抽象機械命令のバイトコードは順方向のバイトコードの抽象機械命令を一対一で変換することで作成する．\figref{fig:rulebyte}に生成規則を示す．順方向のバイトコードをsとしsから逆方向のバイトコードへの変換をi(s)で表す．inv(s)は各抽象機械命令の変換を表す．
 
-[命令，被演算子]
+逆方向の抽象命令セットを\tabref{tab:backwardinstruction}に示す．各命令に対する説明を\tabref{tab:expback}に示す．
 
 
-・[ipush，即値]
+\begin{figure}[tb]
+\CaptionType{table}
+\caption{順方向の抽象機械命令セット}
+\ecaption{instruction of abstract machine for forward}
+\label{tab:forwardinstruction}
+\begin{center}
+\begin{tabular}[t]{|c|c|c|}\hline
+番号 & 命令 & 被演算子 \\\hline
+1 & $ipush$ & 即値 \\\hline
+2 & $load$ & 変数番地 \\\hline
+3 & $store$ &変数番地 \\\hline
+4 & $jpc$&ジャンプ先PC \\\hline
+5 & $jmp$&ジャンプ先PC \\\hline
+6 & $op$&演算番号 \\\hline
+7 & $label$&バイトコード全体の抽象命令数 \\\hline
+8& $par$&\{0,1\} \\\hline
+9& $alloc$&変数番地 \\\hline
+10& $free$&変数番地 \\\hline
+11& $proc$&pn \\\hline
+12& $p\_return$&pn \\\hline
+13& $block$ & bn \\\hline
+14& $end$ & bn \\\hline
+15& $fork$ & an \\\hline
+16& $merge$ & an \\\hline
+17& $func$ & fn \\\hline
+18& $f\_return$ & fn \\\hline
+19& $w\_label$ & wn \\\hline
+20& $w\_end$ & wn \\\hline
+21& $nop$ & 0 \\\hline
+\end{tabular}
+\end{center}
+\end{figure}
 
-ipushはスタックのトップに被演算子の即値をプッシュする．
 
+\begin{figure}[tb]
+\CaptionType{table}
+\caption{順方向の各命令に対する説明}
+\ecaption{explanation of each instruction for forward}
+\label{tab:expfor}
+\begin{center}
+\begin{tabular}[t]{|c|l|}\hline
+1 &ipushはスタックのトップに被演算子の即値をプッシュする． \\\hline
 
-・[load，変数番地]
+2 & loadは被演算子の変数番地の値を読み出し，その値\\
 
-loadは被演算子の変数番地の値を読み出し，その値をスタックトップにプッシュする．
+& をスタックトップにプッシュする．\\\hline
 
+3& storeはスタックトップの値をポップし被演算子の変数番地\\ 
 
-・[store，変数番地]
+& に保存する．値スタックに保存する前の変数番地の値を\\ &プッシュする．\\\hline
 
-storeはスタックトップの値をポップし被演算子の変数番地に保存する．値スタックに保存する前の変数番地の値をプッシュする．
+4 &jpcはスタックトップから値をポップしその値が１ならば\\ & 被演算子のジャンプ先PCの値を次のPCの値とする． \\\hline
 
+5& jmpは無条件で被演算子のジャンプ先PCの値を\\ & 次のPCの値とする．\\\hline
 
-・[jpc，ジャンプ先PC]
 
-jpcはスタックトップから値をポップしその値が１ならば被演算子のジャンプ先PCの値を次のPCの値とする．
 
+6& opはスタックトップから値を二回ポップしその二つの値に\\ &対して被演算子の演算番号（0,1,2,3,4）に対してそれぞれ\\ &（+,-,$\times$,>,==）の演算を行う．\\\hline
 
-・[jmp，ジャンプ先PC]
 
-jmpは無条件で被演算子のジャンプ先PCの値を次のPCの値とする．
+7& labelは一つ前のPCの値をバイトコード全体の命令数+1から\\ & 引いた値（逆方向コードにしたときに対応する命令のPC）\\ &をラベルスタックにプッシュする．\\\hline
 
-・[op，演算番号]
 
-opはスタックトップから値を二回ポップしその二つの値に対して被演算子の演算番号（0,1,2,3,4）に対してそれぞれ（+,-,$\times$,>,==）の演算を行う．
+8& parは並列ブロックの区切りを表し，被演算子が0の時は始\\ &まりを表し，1で終了を表す．\\\hline
 
 
-・[label，バイトコード全体の抽象命令の数]
+9& allocは変数番地の番地の確保を行う．初期値は0となっている．\\\hline
 
-labelは一つ前のPCの値をバイトコード全体の命令数+1から引いた値（逆方向コードにしたときに対応する命令のPC）をラベルスタックにプッシュする．
+10& freeは変数番地の解放を行う．変数の値を変数テーブルに記録\\ &し順方向実行時の最後の変数の値を保存する．\\\hline
 
+11& procは手続きの始まりを表す．パスにpnを追加しlabel命令\\ &と同様にラベルスタックに一つ前のPCの値をバイトコード全体\\ &の命令数+1から引いた値をプッシュする．帰り番地を保存する\\ &ために一つ前のＰＣの値を演算スタックにプッシュする．\\\hline
 
-・[par，\{0,1\}]
+12& p\_returnは手続きの終了を表す．パスからpnを削除し演算\\ &スタックから帰り番地のＰＣをポップしそのPCにジャンプする．\\\hline
 
-parは並列ブロックの区切りを表し，被演算子が0の時は始まりを表し，1で終了を表す．
+13& blockはパスにbnを追加する．\\\hline
 
+14& endはパスからbnを削除する．\\\hline
 
 
-・[alloc，変数番地]
+15& forkは並列ブロックの始まりを表し，各ブロックのプロセス\\ &を並列に実行するプロセスを生成する．プロセスの生成には\\ &バイトコード生成時に作成した並列テーブルanを参照し各\\ &ブロックの開始終了番地を各プロセスに与え，実行を開始させる．\\\hline
 
-allocは変数番地の番地の確保を行う．初期値は0となっている．
 
+16& mergeは並列ブロックの終わりを表す．\\\hline
 
 
-・[free，変数番地]
+17& funcは関数の始まりを表す．パスにfnを追加し，label命令と\\ &同様にラベルスタックに一つ前のPCの値をバイトコード全体\\ &の命令数+1から引いた値をプッシュする．帰り番地を保存する\\ &ために一つ前のＰＣの値を演算スタックにプッシュする．演算\\ &スタックに既に積まれている実引数の値を演算スタックの一番\\ &上に移動させる．\\\hline
 
-freeは変数番地の解放を行う．変数の値を変数テーブルに記録し順方向実行時の最後の変数の値を保存する．
 
+18& f\_returnは関すの終わりを表す．パスからpnを削除し演算\\ &スタックからスタックトップの一つ下にある帰り番地のＰＣ\\ &をポップしそのPCにジャンプする．\\\hline
 
-・[proc，pn]
 
-procは手続きの始まりを表す．パスにpnを追加しlabel命令と同様にラベルスタックに一つ前のPCの値をバイトコード全体の命令数+1から引いた値をプッシュする．帰り番地を保存するために一つ前のＰＣの値を演算スタックにプッシュする．
+19& w\_labelはパスにwnを追加し一つ前のPCの値をバイトコード\\ &全体の命令数+1から引いた値（逆方向コードにしたときに対応\\ &する命令のPC）をラベルスタックにプッシュする．\\\hline
 
-・[p\_return，pn]
+20& w\_endはパスからwnを全て削除する．\\\hline
 
-p\_returnは手続きの終了を表す．パスからpnを削除し演算スタックから帰り番地のＰＣをポップしそのPCにジャンプする．
+21& nopは何も操作を行わない． \\\hline
+\end{tabular}
+\end{center}
+\end{figure}
 
 
-・[block，bn]
 
-blockはパスにbnを追加する．
+\begin{figure}[tb]
+\setbox0\vbox{
+\[
+  i(s) = \left\{ \begin{array}{ll}
+    \epsilon & (s=\epsilon) \\
+    i(s')inv(c) & (s=cs')
+  \end{array} \right.
+\]
 
+\hbox{$inv(store\ v)= restore\ v,\ \ \ \ \ \ \ inv(jpc\ a)=r\_label\ 0 $}
 
-・[end，bn]
+\hbox{$inv(jmp\ a)=r\_label\ 0,\ \ \ \ \ \ \ \ \ inv(label\ n)=rjmp\ 0$}
 
-endはパスからbnを削除する．
+\hbox{$inv(par\ 0)=par\ 1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ inv(par\ 1)=par\ 0$}
 
-・[fork，an]
+\hbox{$inv(alloc\ v)=r\_free\ v,\ \ \ \ \ \ \ \ inv(free\ v)=r\_alloc\ v$}
 
-forkは並列ブロックの始まりを表し，各ブロックのプロセスを並列に実行するプロセスを生成する．プロセスの生成にはバイトコード生成時に作成した並列テーブルanを参照し各ブロックの開始終了番地を各プロセスに与え，実行を開始させる．
+\hbox{$inv(fork\ an)=merge\ an,\ \ \ \ \ inv(merge\ an)=r\_fork\ an$}
 
+\hbox{$inv(block\ bn)=end\ bn,\ \ \ \ \ \ \ \ \ inv(end\ bn)=block\ bn$}
 
-・[merge，an]
+\hbox{$inv(proc\ pn)=r\_return\ pn,\ \ \ inv(p\_return\ pn)=r\_proc\ pn$}
 
-mergeは並列ブロックの終わりを表す．
+\hbox{$inv(func\ fn)=r\_return\ fn,\ \ inv(f\_return\ fn)=r\_proc\ pn$}
 
+\hbox{$inv(w\_label\ wn)=w\_end\ wn,\ \ inv(w\_end\ wn)=r\_w\_label\ wn$}
 
-・[func，fn]
+\hbox{\|その他の命令cは|$inv(c\ n)=nop\ 0$\|に変換する．|}
+}
+\centerline{\fbox{\box0}}
+\caption{逆方向バイトコードへの変換規則}
+\ecaption{conversion rule for backward bytecode}
+\label{fig:rulebyte}
+\end{figure}
 
-funcは関数の始まりを表す．パスにfnを追加し，label命令と同様にラベルスタックに一つ前のPCの値をバイトコード全体の命令数+1から引いた値をプッシュする．帰り番地を保存するために一つ前のＰＣの値を演算スタックにプッシュする．演算スタックに既に積まれている実引数の値を演算スタックの一番上に移動させる．
 
+\begin{figure}[tb]
+\CaptionType{table}
+\caption{逆方向の抽象機械命令セット}
+\ecaption{instruction of abstract machine for backward}
+\label{tab:backwardinstruction}
+\begin{center}
+\begin{tabular}[t]{|c|c|c|}\hline
+番号 & 命令 & 被演算子 \\\hline
+1 & $rjmp$ & 0 \\\hline
+2 & $restore$ & 変数番地 \\\hline
+3 & $r\_label$ & 0 \\\hline
+4 & $par$& \{0,1\} \\\hline
+5 & $r\_alloc$& 変数番地 \\\hline
+6 & $free$& 変数番地 \\\hline
+7 & $r\_proc$& pn \\\hline
+8& $r\_return$&pn \\\hline
+9& $block$& bn \\\hline
+10& $end$& bn \\\hline
+11& $r\_fork$& an \\\hline
+12& $merge$&an \\\hline
+13& $r\_w\_label$ & wn \\\hline
+14& $w\_end$ & wn \\\hline
+15& $nop$ & 0 \\\hline
+\end{tabular}
+\end{center}
+\end{figure}
 
-・[f\_return，fn]
 
-f\_returnは関すの終わりを表す．パスからpnを削除し演算スタックからスタックトップの一つ下にある帰り番地のＰＣをポップしそのPCにジャンプする．
 
+\begin{figure}[tb]
+\CaptionType{table}
+\caption{逆方向の各命令に対する説明}
+\ecaption{explanation of each instruction for backward}
+\label{tab:expback}
+\begin{center}
+\begin{tabular}[t]{|c|l|}\hline
+1 & rjmpはラベルスタックから値をポップしその値を次のPCの値\\ &とする．\\\hline
 
-・[w\_label，wn]
+2 & restoreは値スタックから値をポップしその値を共有変数スタック\\ &の変数番地に格納する．\\\hline
 
-w\_labelはパスにwnを追加し一つ前のPCの値をバイトコード全体の命令数+1から引いた値（逆方向コードにしたときに対応する命令のPC）をラベルスタックにプッシュする．
+3 & r\_labelはrjmp命令のジャンプ先の対象となる．\\\hline
 
-・[w\_end，wn]
+4 & parは並列ブロックの区切りを表し，被演算子が0の時は始まり\\ &を表し，1で終了を表す．\\\hline
 
-w\_endはパスからwnを全て削除する．
+5 & 変数番地から値を変数番地の変数の値を読み出しその値を共有変数\\ &スタックの変数番地に格納する．\\\hline
 
-・[nop，0]
+6 & 共有変数スタックの変数番地を解放する．\\\hline
 
-nopは何も操作を行わない．
+7 & 手続きの始まりを表す．パスにpnを追加する．\\\hline
 
+8 & 手続きの終わりを表す．パスにpnを追加する．\\\hline
+
+9 & blockはパスにbnを追加する．\\\hline
+
+10 & endはパスからbnを削除する．\\\hline
+
+11 & r\_forkは並列ブロックの始まりを表し，各ブロックを並列に\\ &実行するプロセスを生成する．プロセスの生成にはバイトコ\\ &ード生成時に作成した並列テーブルanをfork命令とは逆順\\ &に参照し各ブロックの開始終了番地を各プロセスに与え，実行\\ &を開始させる．\\\hline
+
+12 & mergeは並列ブロックの終わりを表す．\\\hline
+
+13 & whileブロックの始まりを表す．w\_labelはパスにwnを追加する．\\\hline
+
+14 & w\_endはパスからwnを全て削除する．\\\hline
+
+15 & 何も操作を行わない．\\\hline
+\end{tabular}
+\end{center}
+\end{figure}
+
+
+
+\subsubsection{バイトコードの例}
 
 \begin{figure}[tb]
 \setbox0\vbox{
@@ -578,120 +541,6 @@ nopは何も操作を行わない．
 \ecaption{sample program: a byte code of forward execution}
 \label{fig:bytecode}
 \end{figure}
-
-\figref{fig:sample}を順方向実行のバイトコードに変換すると\figref{fig:bytecode}になる．左端の数字はPC（プログラムカウンタ）を表し（命令，被演算子）というように抽象機械命令が表示されている．
-
-%3.3.2
-\subsubsection{逆方向抽象機械命令}
-
-逆方向抽象機械命令のバイトコードは順方向のバイトコードの抽象機械命令を一対一で変換することで作成する．以下に生成規則を示す．順方向のバイトコードをsとしsから逆方向のバイトコードへの変換をi(s)で表す．inv(s)は各抽象機械命令の変換を表す．
-
-\[
-  i(s) = \left\{ \begin{array}{ll}
-    \epsilon & (s=\epsilon) \\
-    i(s')inv(c) & (s=cs')
-  \end{array} \right.
-\]
-
-$inv(store\ v)= restore\ v,\ \ \ \ \ inv(jpc\ a)=r\_label\ 0 $
-
-$inv(jmp\ a)=r\_label\ 0,\ \ \ \ \ inv(label\ n)=rjmp\ 0$
-
-$inv(par\ 0)=par\ 1,\ \ \ \ \ inv(par\ 1)=par\ 0$
-
-$inv(alloc\ v)=r\_free\ v,\ \ \ \ \ inv(free\ v)=r\_alloc\ v$
-
-$inv(fork\ an)=merge\ an,\ inv(merge\ an)=r\_fork\ an$
-
-$inv(block\ bn)=end\ bn,\  inv(end\ bn)=block\ bn$
-
-$inv(proc\ pn)=r\_return\ pn$
-
-$inv(p\_return\ pn)=r\_proc\ pn$
-
-$inv(func\ fn)=r\_return\ fn$
-
-$inv(f\_return\ fn)=r\_proc\ pn$
-
-$inv(w\_label\ wn)=w\_end\ wn$
-
-$inv(w\_end\ wn)=r\_w\_label\ wn$
-
-その他の命令cは$inv(c\ n)=nop\ 0$に変換する．
-
-
-続いて，逆方向抽象機械命令セットを以下に示す．
-
-[命令，被演算子]
-
-・[rjmp，0]
-
-rjmpはラベルスタックから値をポップしその値を次のPCの値とする．
-
-
-・[restore，変数番地]
-
-restoreは値スタックから値をポップしその値を共有変数スタックの変数番地に格納する．
-
-
-・[r\_label，0]
-
-r\_labelはrjmp命令のジャンプ先の対象となっている．
-
-・[par，\{0,1\}]
-
-parは並列ブロックの区切りを表し，被演算子が0の時は始まりを表し，1で終了を表す．
-
-
-・[r\_alloc，変数番地]
-
-変数番地から値を変数番地の変数の値を読み出しその値を共有変数スタックの変数番地に格納する．
-
-
-・[free，変数番地]
-
-共有変数スタックの変数番地を解放する．
-
-・[r\_proc，pn]
-
-手続きの始まりを表す．パスにpnを追加する
-
-・[r\_return，pn]
-
-手続きの終わりを表す．パスにpnを追加する．
-
-・[block，bn]
-
-blockはパスにbnを追加する．
-
-
-・[end，bn]
-
-endはパスからbnを削除する．
-
-
-・[r\_fork，an]
-
-r\_forkは並列ブロックの始まりを表し，各ブロックのプロセスを並列に実行するプロセスを生成する．プロセスの生成にはバイトコード生成時に作成した並列テーブルanをfork命令とは逆順に参照し各ブロックの開始終了番地を各プロセスに与え，実行を開始させる．
-
-
-・[merge，an]
-
-mergeは並列ブロックの終わりを表す．
-
-
-・[r\_w\_label，wn]
-
-whileブロックの始まりを表す．w\_labelはパスにwnを追加する．
-
-・[w\_end，wn]
-
-w\_endはパスからwnを全て削除する．
-
-
-・[nop，0]
-
-何も操作を行わない．
 
 
 \begin{figure}[tb]
@@ -743,37 +592,40 @@ w\_endはパスからwnを全て削除する．
 \label{fig:backward}
 \end{figure}
 
+
+
+\figref{fig:sample}を順方向実行のバイトコードに変換すると\figref{fig:bytecode}になる．左端の数字はPC（プログラムカウンタ）を表し（命令，被演算子）というように抽象機械命令が表示されている．
+
 \figref{fig:bytecode}の抽象機械命令を一対一で変換し順序を反転させたものが\figref{fig:backward}の逆方向実行のバイトコードである．これを用いて順方向実行の実行を逆に辿る実行を行う．
 
 %4
 \section{可逆実行環境}
 \label{config}
 
-本章では，本研究で実装した可逆実行環境について説明する．本研究では先行研究を基に抽象機械命令のバイトコードを抽象機械で実行する実行環境という先行研究より単純化した手法によって可逆実行を実現する．本論文では以前までに実装した可逆実行環境に対して新しく変数のスコープ，並列ブロックのネスト構造，手続き呼び出し及び関数呼び出しの拡張を行った．
+本研究では先行研究を基に抽象機械命令のバイトコードを抽象機械で実行する．以前までに実装した可逆実行環境に対して新しく変数のスコープ，並列ブロックのネスト構造，手続き呼び出し及び関数呼び出しの拡張を行う．
 
-ブロック構造を許すように言語の定義を拡張すると，変数のスコープを扱う必要がある．これに対しては先行研究を手法を参考に各ブロックに名前を付け，それらを繋げて参照構造を表すパスとすることで変数のスコープの扱いを可能にしている．
+ブロック構造に対する変数に対しては先行研究の手法を参考に各ブロックに名前を付け，参照構造を表すパスとすることで変数のスコープを実現する．
 
-並列ブロックは順方向の抽象機械のバイトコードを作成する際に各ブロックの開始番地と終了番地を記録したテーブルをそれぞれの並列ブロックごとに作成し，fork命令実行時に参照することで動的にプロセスを生成し，並列のネスト構造の扱いを可能にしている．
-
-手続き呼び出しは呼び出し時に演算スタックに帰り番地を積んでおくことで手続きが終了したら演算スタックから帰り番地を読み出し，そのPCにジャンプすることで本研究の抽象機械でも手続き呼び出しの動作をすることができる．
-
-関数呼び出しも手続き呼び出しと同様に動作するが，手続き呼び出しとは異なる機能として返り値がある．そのため帰り番地を読み出す際に演算スタックのスタックトップから一つ下の値を読み出すという動作を行う．
-
-逆方向実行環境について，本研究では順方向実行時に逆方向実行に必要な情報をスタックに保存することで，この逆方向実行に必要な情報と順方向実行のバイトコードの抽象機械命令を一対一で変換した逆方向実行のバイトコードを用いて順方向実行を逆方向に辿る実行を行う．逆方向実行に必要な情報を保存するスタックとして変数の更新履歴を保存する値スタック，ジャンプ履歴を保存するラベルスタックの二つのスタックを用いる．
-
-本研究において，抽象機械は並列ブロックを動作させるためにPythonのmultiprocessingモジュールを用いて実装した．
+並列ブロックは順方向の抽象機械のバイトコードを作成する際に各ブロックの開始番地と終了番地を記録したテーブルをそれぞれの並列ブロックごとに作成し，fork命令実行時に参照することで動的にプロセスを生成し，並列のネスト構造の扱いを可能にしている．本研究において，抽象機械は並列ブロックを動作させるためにPythonのmultiprocessingモジュールを用いて実装した．
 
 %4.1
 \subsection{順方向実行環境}
 
-順方向の実行では実行対象のプログラムをコンパイラで変換した順方向実行のバイトコードと変換する際に生成した各並列ブロックの開始番地と終了番地を保存した並列テーブルを用いて実行する．実行の際にはstore命令で変数の更新履歴を値スタックに保存し，label命令でジャンプ履歴をラベルスタックに保存する．
+\subsubsection{抽象機械の動作}
 
-変数はalloc命令が実行される際に変数テーブルにその時点でのパスと変数の名前を繋げて固有の変数名とした名前を記録する．free命令を実行する際に解放する変数の値を名前の一致する変数名と組にして保存する．
+・ジャンプ履歴の保存
+
+順方向の実行ではjmp命令の対象には必ずlabel命令が生成されるようになっており，label命令でどこからジャンプしてきたかというジャンプ履歴の保存を行う．ラベルスタックにはPC=kの命令を逆方向実行のバイトコードに置き換えたときのPCの値n-k+1を保存する．label命令を実行した時のパスと実行したプロセスを繋げたものもそのPCn-k+1と組にして保存する．
 
 
+・変数更新履歴の保存
+
+順方向の実行ではstore命令を実行する際に演算スタックのトップから値をポップし共有変数スタックに値を保存する．その際に失われるはずのそれまでの変数の値を値スタックに保存する．store命令を実行したときのパスと実行したプロセスを繋げたものもその値と組にして保存する．
 
 %4.1.1
 \subsubsection{変数のスコープ}
+
+変数はalloc命令が実行される際に変数テーブルにその時点でのパスと変数の名前を繋げて固有の変数名とした名前を記録する．free命令を実行する際に解放する変数の値を名前の一致する変数名と組にして保存する．
 
 本論文では，ブロック構造を記述できるように対象言語を拡張した．そのため例えば，手続きブロック内で宣言される変数Xとその外で宣言される変数Xは別物として扱う機能が必要である．そこで先行研究を参考にそれぞれのブロックに名前を付け参照構造を保存するためにパスという機能を実装した．例えば，ブロックb1内のブロックb2内の手続きブロックp1内はパスb1.b2.p1となり，参照構造が明らかにわかるようになっている．そしてこの手続きブロックp1内で宣言される変数Xはb1.b2.p1.Xと固有の名前を改めて付け以降はこの名前で扱う．load命令などで変数Xを参照する場合はその時点のパスを内側から検索していき最も近いパスと最後にXの名前がついている変数名の値を読み出す．
 
@@ -803,27 +655,28 @@ w\_endはパスからwnを全て削除する．
 
 
 %4.2.1
-\subsubsection{ジャンプ履歴の保存}
+\subsubsection{ジャンプ履歴の利用}
 
 %\begin{figure}[tb]
-%  \begin{center}
-%    \includegraphics[]{jmp.png}
-%    \caption{ジャンプ履歴の保存}
-%    \ecaption{reserve a log for jumps}
-%    \label{fig:jmp}
-%  \end{center}
+%\includegraphics{jmp.eps}
 %\end{figure}
-
-のような方法でジャンプ履歴を保存し，保存した情報を使って逆順にジャンプする．順方向の実行ではjmp命令の対象には必ずlabel命令が生成されるようになっており，label命令でどこからジャンプしてきたかというジャンプ履歴の保存を行う．ラベルスタックにはPC=kの命令を逆方向実行のバイトコードに置き換えたときのPCの値n-k+1を保存する．label命令を実行した時のパスと実行したプロセスを繋げたものもそのPCn-k+1と組にして保存する．
 
 逆方向の実行ではlabel命令から変換したrjmp命令でラベルスタックに積まれたジャンプ履歴を取り出しそのPCにジャンプする．ただしパスとプロセス番号が一致しているかを確認し一致していない場合実行することができない．その場合このプロセスは待ち状態となり別のプロセスが実行を進めていく．このようにして順方向の実行で起きたジャンプをちょうど逆順に辿る実行を行う．
 
 %4.2.2
-\subsubsection{変数更新履歴の保存}
+\subsubsection{変数更新履歴の利用}
 
-図の$\sigma$は共有変数スタックを表し，$w$は演算スタックを表す．図のような方法で変数更新履歴を保存し，保存した情報を使って変数の値を逆順に戻していく．順方向の実行ではstore命令を実行する際に演算スタックのトップから値をポップし共有変数スタックに値を保存する．その際に失われるはずのそれまでの変数の値を値スタックに保存する．store命令を実行したときのパスと実行したプロセスを繋げたものもその値と組にして保存する．
+図の$\sigma$は共有変数スタックを表し，$w$は演算スタックを表す．図のような方法で変数更新履歴を保存し，保存した情報を使って変数の値を逆順に戻していく．
 
 逆方向の実行ではstore命令から変換したrestore命令で値スタックに積まれた変数の値を取り出しその値を被演算子と現在のパスが表す番地に保存することで順方向の変数の更新とは逆順に変数の値を戻す実行を行う．
+
+\subsubsection{手続き，関数の逆方向の振る舞い}
+
+手続き，および関数は逆方向の命令では両方ともにr\_proc命令から始まり，r\_return命令で終わる．逆方向実行では呼び出しを行った命令のPCや手続き，関数が終了して戻るPCはジャンプ履歴としてラベルスタックに保存されているため，r\_procはパスを追加する機能を持ったr\_label命令，r\_return命令はパスを削除する機能を持ったrjmp命令として動作することで逆方向の手続き，関数の実行を実現している．
+
+\subsubsection{並列ブロックの逆方向の振る舞い}
+
+逆方向実行ではr\_fork命令で並列ブロックを生成するために並列テーブルの参照する際，並列テーブルに保存されている各ブロックの終わりのPCおよび始まりのPCと対応する逆方向実行のバイトコードのPCをそれぞれ始まりのPCと終わりのPCとする．これによって順方向実行で生成した際と同じプロセス番号で逆方向実行でも並列プロセスを生成することができる．ネスト構造を含んでいても必ず同じプロセス番号のプロセスがネストするプロセスを生成するため順方向実行と逆方向実行のネストの構造は一致する．
 
 
 %5
