@@ -5,7 +5,7 @@
 \usepackage{PROpresentation}
 \PROheadtitle{y-n-(x): 情報処理学会プログラミング研究会 発表資料 Y年m月d日}
 
-\usepackage[dvipdfmx]{graphicx}
+\usepackage{graphicx}
 \usepackage{latexsym}
 
 
@@ -278,12 +278,12 @@ a
 \figref{fig:abst}に本研究で実装した可逆実行環境のイメージを示す．
 
 
-%\begin{figure}[tb]
-%\includegraphics[height=4.0cm,width=9.0cm]{abstract.png}
-%\caption{実装した可逆実行環境}
-%\ecaption{implimentation of reversible runtime}
-%\label{fig:abst}
-%\end{figure}
+\begin{figure}[tb]
+\includegraphics[height=4.0cm,width=9.0cm]{abstract.eps}
+\caption{実装した可逆実行環境}
+\ecaption{implimentation of reversible runtime}
+\label{fig:abst}
+\end{figure}
 
 %3.3
 \subsection{可逆抽象機械}
@@ -669,19 +669,26 @@ a
 %4.2.1
 \subsubsection{ジャンプ履歴の利用}
 
-%\begin{figure}[tb]
-%\includegraphics[height=3.0cm,width=9.0cm]{jmp.png}
-%\caption{ジャンプ履歴の保存と利用方法}
-%\ecaption{reserving and using jump history }
-%\label{fig:jmp}
-%\end{figure}
+\begin{figure}[tb]
+\includegraphics[height=3.0cm,width=9.0cm]{jmp.eps}
+\caption{ジャンプ履歴の保存と利用方法}
+\ecaption{reserving and using jump history }
+\label{fig:jmp}
+\end{figure}
 
-逆方向の実行ではlabel命令から変換したrjmp命令でラベルスタックに積まれたジャンプ履歴を取り出しそのPCにジャンプする．ただしパスとプロセス番号が一致しているかを確認し一致していない場合実行することができない．その場合このプロセスは待ち状態となり別のプロセスが実行を進めていく．このようにして順方向の実行で起きたジャンプをちょうど逆順に辿る実行を行う．
+\figref{fig:jmp}にジャンプ履歴の保存と利用の構造を示す．逆方向の実行ではlabel命令から変換したrjmp命令でラベルスタックに積まれたジャンプ履歴を取り出しそのPCにジャンプする．ただしパスとプロセス番号が一致しているかを確認し一致していない場合実行することができない．その場合このプロセスは待ち状態となり別のプロセスが実行を進めていく．このようにして順方向の実行で起きたジャンプをちょうど逆順に辿る実行を行う．
 
 %4.2.2
 \subsubsection{変数更新履歴の利用}
 
-図の$\sigma$は共有変数スタックを表し，$w$は演算スタックを表す．図のような方法で変数更新履歴を保存し，保存した情報を使って変数の値を逆順に戻していく．
+\begin{figure}[tb]
+\includegraphics[height=3.0cm,width=9.0cm]{store.eps}
+\caption{変数更新履歴の保存と利用方法}
+\ecaption{reserving and using store history }
+\label{fig:store}
+\end{figure}
+
+\figref{fig:store}には変数更新履歴の保存と利用の構造を示す．\figref{fig:store}の$\sigma$は共有変数スタックを表し，$w$は演算スタックを表す．図のような方法で変数更新履歴を保存し，保存した情報を使って変数の値を逆順に戻していく．
 
 逆方向の実行ではstore命令から変換したrestore命令で値スタックに積まれた変数の値を取り出しその値を被演算子と現在のパスが表す番地に保存することで順方向の変数の更新とは逆順に変数の値を戻す実行を行う．
 
@@ -699,8 +706,18 @@ a
 
 \subsection{抽象機械の実装}
 
+\begin{figure}[tb]
+\includegraphics[height=6.0cm,width=9.0cm]{parallel.eps}
+\caption{並列プロセスの生成}
+\ecaption{creating parallel process }
+\label{fig:parallel}
+\end{figure}
+
 本研究では並列プログラムの実行を行うため抽象機械をPythonのmultiprocessingモジュールを用いて実装している．並列プロセスの生成はfork命令を実行する際に並列テーブルを参照し必要な数だけmultiprocessingモジュールのprocess関数を用いて生成する．このとき並列プロセスを生成したプロセスは抽象機械の実行としては待ち状態になり生成したプロセスの番号を保持しそれらが終了しているかどうかを監視するプロセスとして動作する．監視プロセスが自分の生成したプロセスが終了した（PCが終了番地に達した）と判定した場合multiprocessingモジュールのterminate関数を用いてそのプロセスを終了させる．そのようにしてすべての生成したプロセスが終了したと判定された場合監視を終了し抽象機械の実行を行うプロセスに戻る．
 
+\figref{fig:parallel}に並列プロセスの生成を示している．forkによって並列プロセスが生成，起動され，さらに生成されたプロセスから並列プロセスが生成，起動されている．それぞれ生成されたプロセスはその実行が終了するとmergeで生成したプロセスに実行の制御を戻していく．
+
+\figref{fig:parallel}の順方向の図と逆方向の図は実線と点線がそれぞれ対応しており順方向のfork，mergeはそれぞれ逆方向ではmerge，forkになる．このようにして順方向と同様の並列プロセスの生成を逆方向でも行う．
 
 \subsection{実行例}
 本研究で実装した可逆実行環境の実行例を示す．\figref{fig:target}の対象プログラムを順方向実行しその実行を逆に辿る実行をすることを考える．\figref{fig:target}のプログラムは3の階乗を計算するプログラムで，関数bug\_fact(x)は再帰的に計算を行いxの階乗を返す関数である．しかしbug\_fact(x)は並列に二つのプロセスを実行し一つのプロセスは順当に階乗の計算を再帰的に行う．もう一つのプロセスは順当に行う階乗の計算を妨害するように仮引数xの値をいずれかのタイミングで1引くプロセスとなっている．この妨害プロセスがどのタイミングで行われるかによって階乗計算の結果と再帰する数及び並列プロセスの生成数が異なる例となっている．
