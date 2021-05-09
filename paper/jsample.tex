@@ -287,6 +287,16 @@ a
 
 ブロック構造に対する変数に対しては先行研究の手法を参考に各ブロックに名前を付け，参照構造を表すパスとすることで変数のスコープを実現する．
 
+\figref{fig:abst}に本研究で実装した可逆実行環境のイメージを示す．
+
+\begin{figure}[tb]
+\includegraphics[height=4.0cm,width=9.0cm]{abstract.eps}
+\caption{実装した可逆実行環境}
+\ecaption{implimentation of reversible runtime}
+\label{fig:abst}
+\end{figure}
+
+
 \subsection{順方向実行環境}
 
 順方向の計算で用いるバイトコードセットを\tabref{tab:forwardinstruction}に示す．
@@ -408,6 +418,9 @@ PCを演算スタックから読み出しその番地にシャンプすること
 によって宣言する．この関数内では関数名自体を局所変数と同様に扱って演算す
 ることができる．
 
+\subsubsection{抽象機械の順方向出力}
+
+抽象機械は，自分が生成した局所変数をremoveするときに，プロセスIdとパスとともにその値を出力テーブル$o$に記録する．この値は逆方向に実行するときにプロセスIdが起動されたときその変数の初期値となる．このために，\bcode{remove}の逆命令として，\bcode{r\_alloc}を用意する．
 
 \subsection{逆方向実行環境の概要}
 \label{sec:4.2}
@@ -493,6 +506,13 @@ PCを演算スタックから読み出しその番地にシャンプすること
 %4.2.1
 \subsubsection{ジャンプ履歴の利用}
 
+\begin{figure}[tb]
+\includegraphics[height=3.0cm,width=9.0cm]{jmp.eps}
+\caption{ジャンプ履歴の保存と利用方法}
+\ecaption{reserving and using jump history }
+\label{fig:jmp}
+\end{figure}
+
 逆方向の実行ではlabel命令から変換したrjmp命令でラベルスタックに積まれた
 ジャンプ履歴を取り出しそのPCにジャンプする．ただしパスとプロセス番号が一
 致しているかを確認し一致していない場合実行することができない．その場合こ
@@ -501,6 +521,15 @@ PCを演算スタックから読み出しその番地にシャンプすること
 
 %4.2.2
 \subsubsection{変数更新履歴の利用}
+
+\begin{figure}[tb]
+\includegraphics[height=3.0cm,width=9.0cm]{store.eps}
+\caption{変数更新履歴の保存と利用方法}
+\ecaption{reserving and using store history }
+\label{fig:store}
+\end{figure}
+
+図の$\sigma$は共有変数スタックを表し，$w$は演算スタックを表す．図のような方法で変数更新履歴を保存し，保存した情報を使って変数の値を逆順に戻していく．
 
 逆方向の実行ではstore命令から変換したrestore命令で値スタックに積まれた変
 数の値を取り出しその値を被演算子と現在のパスが表す番地に保存することで順
