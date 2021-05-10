@@ -1,0 +1,65 @@
+\documentclass[dvipdfmx]{jarticle}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc}
+\pagestyle{empty}
+\begin{document}
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=1cm, text badly centered, node distance=2cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=5em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+\begin{tabular}{cc}
+\begin{tikzpicture}
+\coordinate (startPoint) at (0,0);
+\node[cloud] (callPoint) at ($(startPoint)+(0,-1.5)$) {$\mathsf{call}$};
+\node[cloud] (returnPoint) at ($(callPoint)+(0,-1)$) {$\mathsf{label}$};
+\node[cloud] (procPoint) at ($(callPoint)+(2.5,0.75)$) {$\mathsf{proc}$};
+\node[block] (procBlock) at ($(callPoint)+(2.5,-0.5)$) {B};
+\node[cloud] (pReturn) at ($(returnPoint)+(2.5,-0.75)$) {$\mathsf{p\_return}$};
+
+\path[->] (startPoint) edge (callPoint);
+\path[-] (callPoint) edge ($(callPoint)+(1,0)$);
+\path[-] ($(callPoint)+(1,0)$) edge ($(callPoint)+(1,1.5)$)
+         ($(callPoint)+(1,1.5)$) edge ($(callPoint)+(2.5,1.5)$);
+\path[->] ($(callPoint)+(2.5,1.5)$) edge (procPoint);
+\path[->] (procPoint) edge (procBlock);
+\path[->] (procBlock) edge (pReturn);
+
+\path[-] (pReturn) edge ($(returnPoint)+(2.5,-1.5)$);
+\path[-] ($(returnPoint)+(2.5,-1.5)$) edge ($(returnPoint)+(1,-1.5)$)
+         ($(returnPoint)+(1,-1.5)$) edge ($(returnPoint)+(1,0)$);
+\path[->] ($(returnPoint)+(1,0)$) edge (returnPoint);
+
+\path[->] (returnPoint) edge ($(returnPoint)+(0,-1.5)$);
+\end{tikzpicture}
+&
+\begin{tikzpicture}
+\coordinate (startPoint) at (0,0);
+\node[cloud] (callPoint) at ($(startPoint)+(0,-1.5)$) {$\mathsf{\ \ \ }$};
+\node[cloud] (returnPoint) at ($(callPoint)+(0,-1)$) {$\mathsf{rjmp}$};
+\node[cloud] (procPoint) at ($(callPoint)+(2.5,0.75)$) {$\mathsf{rjmp}$};
+\node[block] (procBlock) at ($(callPoint)+(2.5,-0.5)$) {B$^{-1}$};
+\node[cloud] (pReturn) at ($(returnPoint)+(2.5,-0.75)$) {$\mathsf{\ \ \ }$};
+
+\path[<-] (startPoint) edge (callPoint);
+\path[<-] (callPoint) edge ($(callPoint)+(1,0)$);
+\path[-] ($(callPoint)+(1,0)$) edge ($(callPoint)+(1,1.5)$)
+         ($(callPoint)+(1,1.5)$) edge ($(callPoint)+(2.5,1.5)$);
+\path[-] ($(callPoint)+(2.5,1.5)$) edge (procPoint);
+\path[<-] (procPoint) edge (procBlock);
+\path[<-] (procBlock) edge (pReturn);
+
+\path[<-] (pReturn) edge ($(returnPoint)+(2.5,-1.5)$);
+\path[-] ($(returnPoint)+(2.5,-1.5)$) edge ($(returnPoint)+(1,-1.5)$)
+         ($(returnPoint)+(1,-1.5)$) edge ($(returnPoint)+(1,0)$);
+\path[-] ($(returnPoint)+(1,0)$) edge (returnPoint);
+
+\path[<-] (returnPoint) edge ($(returnPoint)+(0,-1.5)$);
+\end{tikzpicture}
+
+
+\end{tabular}
+\end{document}
