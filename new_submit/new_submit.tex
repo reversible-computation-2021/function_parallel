@@ -355,9 +355,9 @@ Multiprocessingモジュールを用いて実現し，バイトコードへの�
 16& \bcode{merge} & an \\\hline
 17& \bcode{func} & fn \\\hline
 18& \bcode{f\_return} & fn \\\hline
-19& \bcode{w\_label} & wn \\\hline
-20& \bcode{w\_end} & wn \\\hline
-21& \bcode{nop} & 0 \\\hline
+%19& \bcode{w\_label} & wn \\\hline
+%20& \bcode{w\_end} & wn \\\hline
+19& \bcode{nop} & 0 \\\hline
 \end{tabular}
 \end{center}
 \end{figure}
@@ -561,7 +561,7 @@ PCを演算スタックから読み出しその番地にシャンプすること
 
 \hbox{$inv(\mathsf{proc}\ pn)=\mathsf{rjmp}\ N,\ \ \ inv(\mathsf{func}\ pn)=\mathsf{rjmp}\ N$}
 
-\hbox{$inv(\mathsf{w\_label}\ wn)=\mathsf{rjmp}\ N,\ \ inv(\mathsf{w\_end}\ wn)=\mathsf{rjmp}\ N$}
+%\hbox{$inv(\mathsf{w\_label}\ wn)=\mathsf{rjmp}\ N,\ \ inv(\mathsf{w\_end}\ wn)=\mathsf{rjmp}\ N$}
 
 \hbox{\|その他の命令cは|$inv(c\ n)=\mathsf{nop}\ 0$\|に変換する．|}
 \hbox{\|ここで|$N$\|は実行バイトコード列の長さ．|}
@@ -601,11 +601,18 @@ Idを持つプロセスがジャンプ履歴を取り出しその命令番地に
 他のプロセスは待ち状態となる．このようにして
 順方向の実行で起きたジャンプを逆順に辿る．
 
-\figref{fig:whileFlow}にwhile構造の対応を示す．whileループのエントリにある
-\bcode{w\_label}は繰返しの回数だけラベルスタックにBの最後のジャンプからの
-記録があるので，\bcode{rjmp}によって，Bを逆転したコードを実行するか，whileの
-前に戻るかを決める．\bcode{w\_end}は，while条件のターゲットになっているので
-\bcode{rjmp}でループに戻る．
+%%% yuen 0601 begin
+\figref{fig:whileFlow}にwhile構造の対応を示す．
+%whileループのエントリにある
+%\bcode{w\_label}は繰返しの回数だけラベルスタックにBの最後のジャンプからの
+%記録があるので，
+\bcode{rjmp}によって，Bを逆転したコードを実行するか，whileの
+前に戻るかを決める．
+ループ構造において更新された値およびループで最後に更新された値は
+値スタックに保存される．
+%\bcode{w\_end}は，while条件のターゲットになっているので
+%\bcode{rjmp}でループに戻る．
+%%% yuen 0601 end
 
 \begin{figure}[tb]
 \begin{center}
@@ -819,16 +826,16 @@ $(P,P',w\cdot a\cdot r,\delta\cdot pn,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf
 \qquad $(a,P,w\cdot r,\delta,\chi,\rho,\xi,\sigma)$\newline
 \bcode{f\_return}はパスから$pn$を削除し局所スタックからスタックトップの一
       つ下にある帰り番地をポップしその番地にジャンプする．
-\item \bcode{w\_label}:\\
-$(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{w\_label},wn)}_p$\newline
-\qquad $(P+1,P,w,\delta\cdot wn,\chi,\rho,\xi\cdot(p,P'),\sigma)$\newline
-\bcode{w\_label}はwhileループの開始点であり，繰り返し動作の最後からジャンブする先である．パスに$wn$を追加し一つ前のPCをラベルスタックにプッシュする．
-\item \bcode{w\_end}:\\
-$(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{w\_end},wn)}_p$\newline
-\qquad $(P+1,P,w,\delta',\chi,\rho,\sigma\cdot(p,P'))$\newline
-ここで，$\delta'=rm(\delta,wn)$\newline
-\bcode{w\_end}はwhile文のループ条件が成立しなかった場合の飛び先なので，
-パスからwnを全て削除し，ラベルスタックにwhile文のループ条件である命令番地$P'$を記録する．
+%\item \bcode{w\_label}:\\
+%$(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{w\_label},wn)}_p$\newline
+%\qquad $(P+1,P,w,\delta\cdot wn,\chi,\rho,\xi\cdot(p,P'),\sigma)$\newline
+%\bcode{w\_label}はwhileループの開始点であり，繰り返し動作の最後からジャンブする先である．パスに$wn$を追加し一つ前のPCをラベルスタックにプッシュする．
+%\item \bcode{w\_end}:\\
+%$(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{w\_end},wn)}_p$\newline
+%\qquad $(P+1,P,w,\delta',\chi,\rho,\sigma\cdot(p,P'))$\newline
+%ここで，$\delta'=rm(\delta,wn)$\newline
+%\bcode{w\_end}はwhile文のループ条件が成立しなかった場合の飛び先なので，
+%パスからwnを全て削除し，ラベルスタックにwhile文のループ条件である命令番地$P'$を記録する．
 \item \bcode{nop}:\\
 $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{nop},0)}_p$\newline
 \qquad $(P+1,P,w,\delta,\chi,\rho,\sigma)$\newline
@@ -1504,6 +1511,14 @@ Annotationという形でうめこむことで実現している．これに対�
 ことで順方向の実行フローから逆方向の実行フローは，対応するバイトコードを
 個別に対応するバイトコードに変換して順番を逆に並べるだけで得ることが可能
 になっている．
+
+%%% yuen 0601 begin
+ブロック構造を逆方向に実行する場合には，ブロックで最後に更新された変数の
+値が必要になる．Hoeyらの方法では，この対応をとるためにwhileループにおいて
+アノテーションを導入している．これに対して，本発表ではラベルスタックが
+ジャンプに関する情報を保存し，それに対応した変数の更新が値スタックに保存
+されているので，このような制御に関するアノテーションは不要になっている．
+%%% yuen 0601 end
 
 抽象機械の概念を利用したプログラミング言語処理系の可逆実行環境として，
 \cite{DBLP:conf/forte/LienhardtLMS12}で提案されている．ここでは，マルチ

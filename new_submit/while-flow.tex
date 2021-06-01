@@ -14,10 +14,10 @@
     minimum height=2em]
 \begin{tabular}{cc}
 \begin{tikzpicture}
-\node[cloud] (wlabel) at (0,0) {$\mathsf{w\_label}$};
+\node[cloud] (wlabel) at (0,0) {$\mathsf{label}$};
 \node[decision] (whileCond) at ($(wlabel)+(0,-1.5)$) {C};
 \node[block] (whileBlock) at ($(whileCond)+(0,-1.5)$) {B};
-\node[cloud] (wend) at ($(whileBlock)+(0,-2)$) {$\mathsf{w\_end}$};
+\node[cloud] (wend) at ($(whileBlock)+(0,-2)$) {$\mathsf{label}$};
 
 \path[->] ($(wlabel)+(0,1)$) edge (wlabel);
 \path[->] (wlabel) edge (whileCond);
