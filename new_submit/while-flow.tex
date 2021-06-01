@@ -1,0 +1,57 @@
+\documentclass[dvipdfmx]{jarticle}
+%\documentclass{jarticle}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc}
+\pagestyle{empty}
+\begin{document}
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=1cm, text badly centered, node distance=2cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=5em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+\begin{tabular}{cc}
+\begin{tikzpicture}
+\node[cloud] (wlabel) at (0,0) {$\mathsf{w\_label}$};
+\node[decision] (whileCond) at ($(wlabel)+(0,-1.5)$) {C};
+\node[block] (whileBlock) at ($(whileCond)+(0,-1.5)$) {B};
+\node[cloud] (wend) at ($(whileBlock)+(0,-2)$) {$\mathsf{w\_end}$};
+
+\path[->] ($(wlabel)+(0,1)$) edge (wlabel);
+\path[->] (wlabel) edge (whileCond);
+\path[->] (whileCond) edge (whileBlock);
+\path[-] (whileBlock) edge ($(whileBlock)+(0,-0.8)$)
+         ($(whileBlock)+(0,-0.8)$) edge ($(whileBlock)+(-2,-0.8)$)
+         ($(whileBlock)+(-2,-0.8)$) edge ($(wlabel)+(-2,0)$);
+\path[->] ($(wlabel)+(-2,0)$) edge (wlabel);
+\path[-] (whileCond) edge ($(whileCond)+(2,0)$)
+         ($(whileCond)+(2,0)$) edge ($(wend)+(2,0.8)$)
+         ($(wend)+(2,0.8)$) edge ($(wend)+(0,0.8)$);
+\path[->]($(wend)+(0,0.8)$) edge (wend);
+\path[->] (wend) edge ($(wend)+(0,-1)$);
+\end{tikzpicture}
+&
+\begin{tikzpicture}
+\node[cloud] (wlabel) at (0,0) {$\mathsf{rjmp}$};
+\node[decision] (whileCond) at ($(wlabel)+(0,-1.5)$) {};
+\node[block] (whileBlock) at ($(whileCond)+(0,-1.5)$) {B$^{-1}$};
+\node[cloud] (wend) at ($(whileBlock)+(0,-2)$) {$\mathsf{rjmp}$};
+
+\path[<-] ($(wlabel)+(0,1)$) edge (wlabel);
+\path[<-] (wlabel) edge (whileCond);
+\path[<-] (whileCond) edge (whileBlock);
+\path[<-] (whileBlock) edge ($(whileBlock)+(0,-0.8)$);
+\path[-] ($(whileBlock)+(0,-0.8)$) edge ($(whileBlock)+(-2,-0.8)$)
+         ($(whileBlock)+(-2,-0.8)$) edge ($(wlabel)+(-2,0)$);
+\path[-] ($(wlabel)+(-2,0)$) edge (wlabel);
+\path[<-] (whileCond) edge ($(whileCond)+(2,0)$);
+\path[-] ($(whileCond)+(2,0)$) edge ($(wend)+(2,0.8)$)
+         ($(wend)+(2,0.8)$) edge ($(wend)+(0,0.8)$);
+\path[-]($(wend)+(0,0.8)$) edge (wend);
+\path[<-] (wend) edge ($(wend)+(0,-1)$);
+\end{tikzpicture}\\
+順方向実行 & 逆方向実行
+\end{tabular}
+\end{document}
