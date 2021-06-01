@@ -1,8 +1,9 @@
-This is e-pTeX, Version 3.141592653-p3.9.0-210218-2.6 (utf8.euc) (TeX Live 2021) (preloaded format=platex 2021.4.11)  10 MAY 2021 21:46
+This is e-pTeX, Version 3.141592653-p3.9.0-210218-2.6 (utf8.euc) (TeX Live 2021) (preloaded format=platex 2021.5.10)  1 JUN 2021 19:38
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
-**while-flow
+**while-flow.tex
 (./while-flow.tex
 pLaTeX2e <2020-10-01>+2 (based on LaTeX2e <2020-10-01> patch level 4)
 L3 programming layer <2021-02-18>
@@ -474,12 +475,12 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 ] (./while-flow.aux) ) 
 Here is how much of TeX's memory you used:
- 13710 strings out of 479466
- 307556 string characters out of 5870548
+ 13709 strings out of 479466
+ 307538 string characters out of 5870548
  605126 words of memory out of 5000000
- 31200 multiletter control sequences out of 15000+600000
+ 31199 multiletter control sequences out of 15000+600000
  408206 words of font info for 47 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 113i,15n,116p,422b,790s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 113i,13n,116p,426b,790s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on while-flow.dvi (1 page, 12712 bytes).
+Output written on while-flow.dvi (1 page, 12672 bytes).
