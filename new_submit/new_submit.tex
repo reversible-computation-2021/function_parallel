@@ -2,7 +2,7 @@
 %\documentclass{ipsj}
 
 \usepackage{PROpresentation}
-\PROheadtitle{y-n-(x): 情報処理学会プログラミング研究会 発表資料 Y年m月d日}
+\PROheadtitle{2021-1-(7): 情報処理学会プログラミング研究会 発表資料 2021年6月11日}
 
 \usepackage[dvipdfmx]{graphicx}
 \usepackage{latexsym}
@@ -199,7 +199,7 @@ Multiprocessingモジュールを用いて実現し，バイトコードへの�
 \hbox{\ \ \ \ \ \ \ $\vert$ $S$}
 \hbox{$BB\ ::=\ DV\ DP\ DF\ P(;P)^+\ RV$}
 \hbox{$S\ ::=\ {\bf skip}\ \vert\  X = E\ \vert\ {\bf if}\ C\ {\bf then}\ P\ {\bf else}\ P\ {\bf fi}\ \vert$}
-\hbox{$\ \ \ \ \ \ \ \ \ \  {\bf while}\ wn\ C\ {\bf do}\ P\ {\bf od}\ \vert\ {\bf call}\ cn\ a(X?)$}
+\hbox{$\ \ \ \ \ \ \ \ \ \  {\bf while}\ C\ {\bf do}\ P\ {\bf od}\ \vert\ {\bf call}\ cn\ a(X?)$}
 \hbox{$DV\ ::=\ ({\bf var}\ X;)^*$}
 \hbox{$DP\ ::=\ ({\bf proc}\ pn\ a(X?)\ {\bf is}\ P\ {\bf end})^*$}
 \hbox{$DF\ ::=\ ({\bf func}\ fn\ b(X?)\ {\bf is}\ P\ {\bf return})^*$}
@@ -267,7 +267,7 @@ Multiprocessingモジュールを用いて実現し，バイトコードへの�
 \hbox{\| 5:     proc p1 airline() is|}
 \hbox{\| 6:         par a1 |}
 \hbox{\| 7:             begin b2|}
-\hbox{\| 8:                 while w1 (agent1==1) do|}
+\hbox{\| 8:                 while (agent1==1) do|}
 \hbox{\| 9:                     if (seats>0) then|}
 \hbox{\|10:                        seats=seats-1|}
 \hbox{\|11:                     else|}
@@ -276,7 +276,7 @@ Multiprocessingモジュールを用いて実現し，バイトコードへの�
 \hbox{\|14:                 od|}
 \hbox{\|15:             end|}
 \hbox{\|16:         |$||$\|  begin b3|}
-\hbox{\|17:                 while w2 (agent2==1) do|}
+\hbox{\|17:                 while (agent2==1) do|}
 \hbox{\|18:                     if (seats>0) then|}
 \hbox{\|19:                         seats=seats-1|}
 \hbox{\|20:                     else |}
@@ -932,7 +932,7 @@ $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\brightarrow{(\mathsf{nop},0)}_p$\newline
 \hbox{\|7 : fork   a1         47: op     3|}
 \hbox{\|8 : par    0          48: jpc    50|}
 \hbox{\|9 : block  b2         49: jmp    56|}
-\hbox{\|10: w_label w1        50: label  80|}
+\hbox{\|10: label  80         50: label  80|}
 \hbox{\|11: load   1          51: load   0|}
 \hbox{\|12: ipush  1          52: ipush  1|}
 \hbox{\|13: op     4          53: op     2|}
@@ -940,13 +940,13 @@ $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\brightarrow{(\mathsf{nop},0)}_p$\newline
 \hbox{\|15: jmp    33         55: jmp    59|}
 \hbox{\|16: label  80         56: label  80|}
 \hbox{\|17: load   0          57: ipush  0|}
-\hbox{\|18: ipush  0          58: store 2|}
+\hbox{\|18: ipush  0          58: store  2|}
 \hbox{\|19: op     3          59: label  80|}
 \hbox{\|20: jpc    22         60: jmp    38|}
-\hbox{\|21: jmp    28         61: w_end  w2|}
+\hbox{\|21: jmp    28         61: label  80|}
 \hbox{\|22: label  80         62: end    b3|}
 \hbox{\|23: load   0          63: par    1|}
-\hbox{\|24: ipush  1          64: merge a1|}
+\hbox{\|24: ipush  1          64: merge  a1|}
 \hbox{\|25: op     2          65: p_return p1|}
 \hbox{\|26: store  0          66: label  80|}
 \hbox{\|27: jmp    31         67: ipush  3|}
@@ -955,12 +955,12 @@ $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\brightarrow{(\mathsf{nop},0)}_p$\newline
 \hbox{\|30: store  1          70: store  1|}
 \hbox{\|31: label  80         71: ipush  1|}
 \hbox{\|32: jmp    10         72: store  2|}
-\hbox{\|33: w_end  w1         73: block  c1|}
+\hbox{\|33: label  80         73: block  c1|}
 \hbox{\|34: end    b2         74: jmp    6|}
 \hbox{\|35: par    1          75: label  80|}
 \hbox{\|36 : par   0          76: end    c1|}
 \hbox{\|37: block  b3         77: free   2|}
-\hbox{\|38: w_label w2        78: free   1|}
+\hbox{\|38: label  80         78: free   1|}
 \hbox{\|39: load   2          79: free   0|}
 \hbox{\|40: ipush  1          80: end    b1|}
 }
