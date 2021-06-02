@@ -1,0 +1,38 @@
+\documentclass{jarticle}
+\begin{document}
+\begin{center}
+{\bf\Large PRO研究会{2021-1-(7)}の修正について}\\[10pt]
+{\large 池田崇史，結縁祥治(名古屋大学)}
+\end{center}
+発表資料について5月11日提出の原稿から以下の点について，修正を行いました．
+
+内容的に変更した点は，$\mathbf{while}$ループにおける$wn$という構文要素を削除した
+ことから生じる修正です．
+
+\begin{enumerate}
+\item p2. 図1(6行目) $S$の定義中「$\mathbf{while}\ wn\ C\ \mathbf{do}\ P\ \mathbf{od}$」から「$\mathbf{while}\ C\ \mathbf{do}\ P\ \mathbf{od}$」に変更
+\item p.2 右最終行「$bn,an,wn,pn,fn,cn$」を 「$bn,an,pn,fn,cn$ 」に変更($wn$を削除)
+\item p.3 図2 8行目 $\mathbf{while}\ w1\ (agent1==1)\ \mathbf{do}$ から
+         $\mathbf{while}\ (agent1==1)\ \mathbf{do}$ に変更\\
+         17行目 $\mathbf{while}\ w2\ (agent2==1)\ \mathbf{do}$ から $\mathbf{while}\ (agent2==1)\ \mathbf{do}$
+         に変更
+\item p.4 表1内 $w\_label$ $w\_end$ 削除し，$\mathsf{nop}$の番号を19に変更
+\item p.5 図6内 $w\_label$, $w\_end$ に対する $inv$ 定義の削除
+\item p.5 図7 ラベルスタックに積まれる値を$(N-a+1,p)$から$(a,p)$に変更\\
+　　　　　逆方向ジャンプの\texttt{label 0}を\texttt{nop 0}に変更\\
+　　　　　逆方向ジャンプのrjmp 0をrjmp Nに変更
+\item p.6 図8 \texttt{w\_laxbel}, \texttt{w\_end} $\rightarrow$ label
+\item p.6 左 3.2.1の最後の段落において， 図8の説明を修正
+\item p.8左 3.3.2 の振舞定義の箇条書きから \texttt{w\_label}, \texttt{w\_end} を削除（$\mathsf{f\_return}$と
+$\mathsf{nop}$の間の項目を削除)
+\item p.9 図11　PC=10とPC=38　\texttt{w\_label} wn から　label 80　に変更\\
+          PC=33とPC=61  \texttt{w\_end}   wn から  label 80　に変更
+\item p.11 図16　ラベルスタックの左の値をN-a+1の値からaの値に変更
+\item p.11 9行目　「一行目の(72 0.b1.E) はプロセス0 がPC=72」から「一行目の(4 0) はプロセス0 がPC=4」に変更
+\item p.13 左　「ブロック構造を逆方向に時刻する場合には．．．」のパラグラフを追加
+\item p.13 左　「抽象機械の概念を利用した．．．」から始まる段落中\\
+　p.13 「可逆実行環境として，」$\rightarrow$「可逆実行環境が」
+\end{enumerate}
+
+以上，よろしくお願いいたします．
+\end{document}
