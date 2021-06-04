@@ -72,7 +72,9 @@ $\brightarrow{(\mathsf{r\_alloc},x)}_p$に修正
 ($T(\alabel{n})^{-1}_N$の定義は3.1.3に移動)
 \item \underline{p.9 右 図11内}　PC=10とPC=38　\texttt{w\_label wn} から\texttt{label 80}　に変更\\
           PC=33とPC=61  \texttt{w\_end wn} から  \texttt{label 80}　に変更
-\item \underline{p.11 右 図16内}　ラベルスタックの左の値を変更 (76から引いた数に変更)
+\item \underline{p.11 右 図16内}　ラベルスタックの左の値を修正\\
+(\texttt{bug\_fact}では$N=75$であり，誤って76から引いた数字が示されていたが，p.7の\bcode{label}の振舞定義に
+したがってこのように修正した．)
 \item \underline{p.11 左 9行目} 「一行目の(72 0.b1.E) はプロセス0 がPC=72」から「一行目の(4 0) はプロセス0 がPC=4」に変更
 \item \underline{p.13 左 4番目の段落の前(19行目)}　「ブロック構造を逆方向に時刻する場合には．．．
 アノテーションは不要になっている．」のパラグラフを追加
