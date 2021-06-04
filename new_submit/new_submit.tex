@@ -811,7 +811,7 @@ $(B_i,0,w,\delta,\bot,\rho,\xi,\sigma)\xrightarrow{(\mathsf{par},0)}_{p\cdot i}$
 $(E_i-1,P',w,\delta',\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{par},1)}_{p\cdot i}$\\
 \hspace*{.25\linewidth} $(E_i,E_i-1,w,\delta',\bot,\rho,\xi,\sigma)$\newline
 $\mathsf{par}\ 0$において,親プロセスから動的コンテクスト$\delta$と開始番地と終了番地の
-対$(B_i,E_i)$が受け渡される．
+対$(B_i,E_i)$が\bcode{fork}によって受け渡される．
 %%%yuen 0510 begin
 \item \bcode{alloc}:\\
 $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{alloc},x)}_p$\newline
@@ -919,13 +919,11 @@ $(P,P',w,\delta,\chi,\rho\cdot(p,\delta',n),\xi,\sigma)\brightarrow{(\mathsf{res
 %\bcode{r\_label}は\bcode{rjmp}のターゲットとなる．
 \item \bcode{par}:\\
 $(B_i,0,w,\delta,\bot,\rho,\xi,\sigma)\brightarrow{(\mathsf{par},0)}_{p\cdot i}$\\
-\hspace*{.25\linewidth}$(B_i+1,B_i,w,\rho,\xi,\sigma)$\newline
-$(E-1,P',w,\delta,\bot,\rho,\xi,\sigma)\brightarrow{(\mathsf{par},1)}_{p\cdot i}$\\
-\hspace*{.25\linewidth}$(E,E-1,w,\rho,\xi,\sigma)$\newline
-\bcode{par}\ 0における並列ブロックのラベル$\alabel{n}$，動的コンテクスト$\delta$は，親プロセス$p$から
-受け渡される．$(B_i',E_i')=T(\alabel{n})(i)$に対して$B_i=N+1-B'_i$, $E_i=N+1-E'_i$として，
-\bcode{r\_fork}命令によって起動される．$B_i$からから\bcode{par}\ 0を実行し，$E_i-1$において
-\bcode{par}\ 1を実行する．
+\hspace*{.25\linewidth}$(B_i+1,B_i,w,\delta,\bot,\rho,\xi,\sigma)$\newline
+$(E_i-1,P',w,\delta,\chi,\rho,\xi,\sigma)\brightarrow{(\mathsf{par},1)}_{p\cdot i}$\\
+\hspace*{.25\linewidth}$(E_i,E_i-1,w,\delta,\bot,\rho,\xi,\sigma)$\newline
+\bcode{par}\ 0における並列ブロックのラベル$\alabel{n}$，動的コンテクスト$\delta$と開始番地と
+終了番地の対$(B_i,E_i)$が，親プロセス$p$から\bcode{r\_fork}において受け渡される．
 %\item \bcode{par}:\\
 %$(B,0,w,\rho,\xi,\sigma)\brightarrow{(\mathsf{par},0)}_{p\cdot i}(B+1,B,w,\rho,\xi,\sigma)$\newline
 %$(E-1,P',w,\rho,\xi,\sigma)\brightarrow{(\mathsf{par},1)}_{p\cdot i}(E,E-1,w,\rho,\xi,\sigma)$\newline
