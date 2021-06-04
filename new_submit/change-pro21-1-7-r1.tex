@@ -1,0 +1,84 @@
+\documentclass{jarticle}
+\setlength{\textwidth}{17cm}
+\setlength{\textheight}{23.5cm}
+\hoffset=-25mm \voffset=-25mm
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[cmtip,all]{xy}
+\usepackage{url}
+\newcommand{\longsquiggly}{\xymatrix{{}\ar@{~>}[r]&{}}}
+\newtheorem{thm}{定理}
+\newtheorem{defn}[thm]{定義}
+\newcommand{\bcode}[1]{$\mathsf{#1}$}
+\newcommand{\brightarrow}[1]{\stackrel{#1}{\longsquiggly}}
+
+\newcommand{\blabel}[1]{\mathrm{b}#1}
+\newcommand{\plabel}[1]{\mathrm{p}#1}
+\newcommand{\clabel}[1]{\mathrm{c}#1}
+\newcommand{\flabel}[1]{\mathrm{f}#1}
+\newcommand{\alabel}[1]{\mathrm{a}#1}
+
+
+\begin{document}
+\begin{center}
+{\bf\Large PRO研究会{2021-1-(7)}の修正について}\\[10pt]
+{\large 池田崇史，結縁祥治(名古屋大学)}
+\end{center}
+発表資料について5月11日提出の原稿から以下の点について，修正を行いました．
+
+内容的に変更した点は，$\mathbf{while}$ループにおける$wn$という構文要素を削除した
+ことから生じる修正です．その他，以下の修正の他，フォントの使い方(an,bn,cn,pn,fnなど)の
+統一などを行いました．
+
+\begin{enumerate}
+\item \underline{p.1 日本語アブストラクト：４行目}\\
+「順方向の抽象命令を逆方向の抽象命令に一対一に」\\
+→「順方向の抽象命令を逆順とし，ジャンプ命令と変数更新命令を対応する逆方向の命令に」
+\item \underline{p.1 英文アブストラクト：5行目}\\
+「to reverse abstract instructions one-to-one」\\
+→「in the reversed order with jump and update instructions altered to the corresponding reversing instructions」
+\item \underline{p.2 左16行目} 「Janusにおいては」の前に「可逆プログラミング言語」を挿入
+\item \underline{p.2 左24行目} 「このため」を削除し，「逆方向の実行のためには」を挿入
+\item \underline{p.2 図1(6行目)} $S$の定義中「$\mathbf{while}\ wn\ C\ \mathbf{do}\ P\ \mathbf{od}$」から「$\mathbf{while}\ C\ \mathbf{do}\ P\ \mathbf{od}$」に変更（$wn$の削除)
+\item \underline{p.2 右最終行}「$bn,an,wn,pn,fn,cn$」を 「$bn,an,pn,fn,cn$ 」に変更($wn$を削除)
+\item \underline{p.3 左 2.2節(節内15行目)} 「これによって...特定することができる」を以下に修正\\
+「このため，seats>0の条件判定が10行目ないし19行目のseatsの減算に有効になっていないことが特定できる」
+\item \underline{p.3 図2内 8行目} $\mathbf{while}\ w1\ (agent1==1)\ \mathbf{do}$ から
+         $\mathbf{while}\ (agent1==1)\ \mathbf{do}$ に変更($w1$を削除)\\
+\item \underline{p.3 図2内 17行目} $\mathbf{while}\ w2\ (agent2==1)\ \mathbf{do}$ から $\mathbf{while}\ (agent2==1)\ \mathbf{do}$
+         に変更($w2$を削除)
+\item \underline{p.4 表1内} $\mathsf{w\_label}$ $\mathsf{w\_end}$ 削除し，$\mathsf{nop}$の番号を19に変更
+\item \underline{p.4 右 3.1.3節(節内1行目)} 「バイトコードにおいて」を削除し，「並列ブロックから図4(a)のようなバイトコードを生成する．」を挿入
+\item \underline{p.4 右 3.1.3節(最初の段落の最後)} 「(図4)」→「(図4(b))」
+\item \underline{p.4 右 3.1.3節(３番めの段落の最後)} 「$T(an).last=E_\ell$である．」のあとに，「逆方向に
+並列ブロックを実行する場合は，．．．$T(an)^{-1}_N(i)=(N+1-E_i,N+1-B_i)$である．」を挿入．
+\item \underline{p.5 図6内} $\mathsf{w\_label}$, $\mathsf{w\_end}$ に対する $inv$ 定義の削除
+\item \underline{p.5 図7の修正}
+\begin{list}{}{}
+\item ラベルスタックに積まれる値を$(N-a+1,p)$から$(a,p)$に変更
+\item 逆方向ジャンプの\texttt{label 0}を\texttt{nop 0}に変更
+\item 逆方向ジャンプのrjmp 0をrjmp Nに変更
+\end{list}
+\item \underline{p.6 図8} \texttt{w\_laxbel}, \texttt{w\_end} $\rightarrow$ \texttt{label}
+\item \underline{p.6 左 3.2.1の最後の段落} 図8の説明を差し替え「図8にwhile構造の対応を示す．...値スタックに保存される．」
+\item \underline{p.7 右 $\mathsf{par:}$} 振舞定義およびその定義を差し替え．(6項組間の関係を8項組間の関係に修正)
+\item \underline{p.8 左 $\mathsf{fork:}$} 「$\mathsf{fork}\ an$は，...」以下の説明を差し替え
+\item \underline{p.8 左から右} $\mathsf{w\_label:}$, $\mathsf{w\_end:}$の定義を削除
+\item \underline{p.8 右 $\mathsf{par:}$} 振舞定義およびその定義を差し替え．(6項組間の関係を8項組間の関係に修正)
+\item \underline{p.8 右 $\mathsf{r\_alloc}$} $\xrightarrow{(\mathsf{r\_alloc},x)}_p$を
+$\brightarrow{(\mathsf{r\_alloc},x)}_p$に修正
+\item \underline{p.9 左 $\mathsf{r\_fork:}$} 「$\mathsf{r\_fork}\ an$は，...」以下の説明を差し替え\\
+($T(\alabel{n})^{-1}_N$の定義は3.1.3に移動)
+\item \underline{p.9 右 図11内}　PC=10とPC=38　\texttt{w\_label wn} から\texttt{label 80}　に変更\\
+          PC=33とPC=61  \texttt{w\_end wn} から  \texttt{label 80}　に変更
+\item \underline{p.11 右 図16内}　ラベルスタックの左の値を変更 (76から引いた数に変更)
+\item \underline{p.11 左 9行目} 「一行目の(72 0.b1.E) はプロセス0 がPC=72」から「一行目の(4 0) はプロセス0 がPC=4」に変更
+\item \underline{p.13 左 4番目の段落の前(19行目)}　「ブロック構造を逆方向に時刻する場合には．．．
+アノテーションは不要になっている．」のパラグラフを追加
+\item \underline{p.13 左 4番目の段落} 「抽象機械の概念を利用した．．．」から始まる段落中\\
+　p.13 左 20行目「可逆実行環境として，」を削除し，「可逆実行環境が」を挿入
+\end{enumerate}
+
+以上，よろしくお願いいたします．
+\end{document}
