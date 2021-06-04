@@ -17,6 +17,12 @@
 \newtheorem{defn}[thm]{定義}
 \newcommand{\bcode}[1]{$\mathsf{#1}$}
 \newcommand{\brightarrow}[1]{\stackrel{#1}{\longsquiggly}}
+
+\newcommand{\blabel}[1]{\mathrm{b}#1}
+\newcommand{\plabel}[1]{\mathrm{p}#1}
+\newcommand{\clabel}[1]{\mathrm{c}#1}
+\newcommand{\flabel}[1]{\mathrm{f}#1}
+\newcommand{\alabel}[1]{\mathrm{a}#1}
 %%%end yuen
 
 \def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
@@ -60,8 +66,9 @@ Furo-cho, Chikusa-ward, Nagoya-city, 464-8601}
 析することを目的とした可逆実行環境を示す．並列プログラムを抽象
 機械のバイトコード列に変換して実行する．順方向の実行時は逆向き実行に必
 要な情報をスタックに保存し，その実行を逆向きに辿る実行環境を実装す
-る．この実行環境では，順方向の抽象命令を逆方向の抽象命令に一対一に変
-換することで逆向き実行を実現する．
+る．この実行環境では，順方向の抽象命令を逆方向の抽象命令を
+逆順とし，ジャンプ命令と変数更新命令を対応する逆方向の命令に変換することで
+逆向き実行を実現する．
 
 筆者らはバイトコードによる実行環境複数の抽象機械でバイトコードを順方向お
 よび逆方向において並行実行する実行環境をPython のmultiprocessing モジュー
@@ -90,9 +97,12 @@ with blocks.  A program is translated into a sequence of three-address
 abstract machine instructions and abstract machines running in
 parallel execute the instructions.  The runtime stores the information
 of variable updates and program counter jumps associated with process
-identifies on stacks in the forward execution. In the backward
+identifies on stacks in the forward execution. 
+In the backward
 execution, the abstract instructions for forward execution are
-converted to reverse abstract instructions one-to-one.
+%converted to reverse abstract instructions one-to-one.
+executed in the reversed order with jump and update instructions altered to
+the corresponding instructions.
 
 In our previous work, we presented a runtime for parallel programs with
 flat-fixed structures.  The runtime executes multiple abstract
@@ -132,7 +142,11 @@ Reversible computation, Concurrency, Programming Languages, Reversible runtime-e
 必要と思われるログ情報を残すことが行われる．この観点において，逆方向に実
 行できるだけの情報があれば振舞いを特定することが容易となることが知られて
 おり，このアイデアに基づいた可逆プログラミング言語が提案されている
-\cite{DBLP:journals/entcs/Yokoyama10,DBLP:conf/ifl/ThomsenA15}．Janusに
+\cite{DBLP:journals/entcs/Yokoyama10,DBLP:conf/ifl/ThomsenA15}．
+% yuen 0604
+可逆プログラミング言語である
+%
+Janusに
 おいては，条件分岐構文を拡張して条件分岐がどの方向で発生したか逆方向から
 辿ることができ，最終状態からプログラムを逆から実行して初期状態に至る振舞
 いを再現することができる．可逆計算に基づいて必要十分の情報をプログラミン
@@ -140,7 +154,10 @@ Reversible computation, Concurrency, Programming Languages, Reversible runtime-e
 
 並列プログラムでは概念的に複数のプログラムブロックが同時に実行される．
 並列プログラムの振舞いは共有変数を介したインターリーブによる並行実行で捉
-えられる．このため，個々のプログラムブロックの実行履歴に加えて，複数のプ
+えられる．%yuen 0604 このため，
+逆方向の実行のためには，
+%
+個々のプログラムブロックの実行履歴に加えて，複数のプ
 ログラムブロックが全体としてどのように実行されたかという情報が必要になる．
 並列プログラムの並行実行では実行順序の組み合わせが膨大になることから，
 プログラム実行の再現のために，逆方
@@ -218,8 +235,8 @@ Multiprocessingモジュールを用いて実現し，バイトコードへの�
 \end{figure}
 
 
-対象言語の定義を\figref{fig:def}に示す．$bn,an,pn,fn,cn$はそれぞれの
-ブロック名を示す．それぞれnは整数値を表し$b1$,$b2$,...のように整数値の部分が
+対象言語の定義を\figref{fig:def}に示す．$\blabel{n},\alabel{n},\plabel{n},\flabel{n},\clabel{n}$はそれぞれの
+ブロック名を示す．それぞれ$n$は整数値を表し$\blabel{1}$,$\blabel{2}$,$\ldots$のように整数値の部分が
 重複しないとする．DVは変数の宣言，DPは手続きの宣言，DFは関数の宣言，RVは
 変数の解放を行うステートメントを示している．あるブロック内で宣言された変
 数はそのブロック内で必ず宣言した順番とは逆の順番で変数の解放を行うステー
@@ -234,7 +251,7 @@ Multiprocessingモジュールを用いて実現し，バイトコードへの�
 \item
 関数呼び出し 関数の宣言は{\bf func}から始まり，{\bf return}で終わるよう
      に記述する．関数は簡単のため引数一つとする．関数内では関数の名前を
-     返り値とする．関数の呼び出しは呼び出し名cnと関数名および引数を\{\}
+     返り値とする．関数の呼び出しは呼び出し名$\clabel{n}$と関数名および引数を\{\}
      で囲って記述する．
 \end{itemize}
 
@@ -245,7 +262,7 @@ Multiprocessingモジュールを用いて実現し，バイトコードへの�
 \verb:airline:の呼び出しを行い，最後に最初に宣言した変数の解放を行うプログラム
 である．このプログラムは二つのagentが同時に航空
 券販売のプログラムを表している．
-並列に動作する$b2$,$b3$が残席数\verb:seats:の席を販売することを記述している。
+並列に動作する$\blabel{2}$,$\blabel{3}$が残席数\verb:seats:の席を販売することを記述している。
 6から15行目と16から
 25行目は並列に動作し，\verb;seats;が0にならない限り\verb;seats;を
 減らしていく．9行目と18行目の\verb;seats;の条件判定が\verb;seats;
@@ -254,9 +271,12 @@ Multiprocessingモジュールを用いて実現し，バイトコードへの�
 逆方向実行に必要な情報を残すことでこの実行
 を逆に辿り，\verb;seats;の値が不正に更新された部分を探す．この実行を
 逆に辿っていくと10行目もしくは19行目に対応する実行で\verb;seats;の値が-1から0に
-戻される．これによって\verb;seats;が0より大きいという条件判定のもと
-\verb;seats=seats-1;を実行するはずがseatsの値が既に0になってしまっていて不正に1
-引いてしてしまっている部分を特定することができる．
+戻される．
+%これによって\verb;seats;が0より大きいという条件判定のもと
+%\verb;seats=seats-1;を実行するはずがseatsの値が既に0になってしまっていて不正に1
+%引いてしてしまっている部分を特定することができる．
+このため，\verb|seats>0|の条件判定が10行目ないし19行目の\verb|seats|の減算に有効に
+なっていないことが特定できる．
 
 \begin{figure}[tb]
 \setbox0\vbox{
@@ -366,12 +386,12 @@ Multiprocessingモジュールを用いて実現し，バイトコードへの�
 
 \begin{itemize}
  \item ジャンプ履歴の保存\\
-順方向の実行ではjmp命令のターゲットには必ず\bcode{label}命令を生成する．
+順方向の実行では\bcode{jmp}命令のターゲットには必ず\bcode{label}命令を生成する．
 \bcode{label}命令はどこからジャンプしてきたかというジャンプ履歴の保存を行う．
 ラベルスタックにはプロセスIdとジャンプ先番地$a$を保存する．
 \item 変数更新履歴の保存\\
 順方向の実行では\bcode{store}命令を実行する際に演算スタックのトップから値をポッ
-プし変数の値を更新する．store命令を実行したときのパス，実行したプロ
+プし変数の値を更新する．\bcode{store}命令を実行したときのパス，実行したプロ
 セスId，および更新前の値を値スタックに保存する．
 \end{itemize}
 
@@ -387,9 +407,9 @@ Multiprocessingモジュールを用いて実現し，バイトコードへの�
 それぞれのブロッ
 クに名前を付け参照構造を保存する．パスによって変数の参照文脈を
 区別する．例えば，
-ブロック$b1$内のブロック$b2$内の手続きブロック$p1$内はパス$b1.b2.p1$となり，参照
-構造を明示する．手続きブロック$p1$内で宣言
-される変数$x$は$b1.b2.p1.x$のように名前付けを行い以降はこの名前で扱う．
+ブロック$\blabel{1}$内のブロック$\blabel{2}$内の手続きブロック$\plabel{1}$内はパス$\blabel{1}.\blabel{2}.\plabel{1}$となり，参照
+構造を明示する．手続きブロック$\plabel{1}$内で宣言
+される変数$x$は$\blabel{1}.\blabel{2}.\plabel{1}.x$のように名前付けを行い以降はこの名前で扱う．
 load命令などで変数$x$を参照する場合はその時点のパスを内側から検索していき
 最も近いパスと最後に$x$の名前がついている変数名の値を読み出す．
 
@@ -419,17 +439,21 @@ $\delta$のパスから$x$を参照したときの変数の値を$n$に更新す
 \subsubsection{並列ブロック}
 
 %%%yuen 0510
-バイトコードにおいて一つの並列ブロックは\bcode{fork}命令から始まり，各ブロックが
+%バイトコードにおいて
+% yuen 0604
+並列ブロックから図\ref{fig:parallelTable}(a)のようなバイトコードを生成する．
+%
+一つの並列ブロックは\bcode{fork}命令から始まり，各ブロックが
 {\sf par 0}，{\sf par 1}で囲まれ，\bcode{merge}命令で終わる．バイトコー
 ドを作成する際に生成する並列テーブルはこの{\sf par 0}と{\sf par 1}の番地
 を組にして保存し各ブロックの開始番地終了番地を保存している．\bcode{fork}
-の被演算子は並列ブロック名$an$である．ソースプログラムにおける$an$に対する
-並列ブロックテーブルを生成し，anに含まれる並列ブロックに対して，子プロセ
+の被演算子は並列ブロック名$\alabel{n}$である．ソースプログラムにおける$\alabel{n}$に対する
+並列ブロックテーブルを生成し，$\alabel{n}$に含まれる並列ブロックに対して，子プロセ
 スとして生成するプロセスの命令開始番地と命令終了番地を示す静的なテーブル
-$T$を生成する．(\figref{fig:parallelTable})
+$T$を生成する．(\figref{fig:parallelTable}(b))
 
 \begin{figure}[tb]
-\includegraphics[width=.8\linewidth]{./parallelTable_1.eps}
+\includegraphics[width=.8\linewidth]{./parallelTable_1-r1.eps}
 \caption{並列ブロックテーブル}
 \ecaption{parallel block table}
 \label{fig:parallelTable}
@@ -445,19 +469,24 @@ $T$を生成する．(\figref{fig:parallelTable})
 \label{fig:parallel}
 \end{figure}
 
-並列ブロック$an$に対する並列ブロックテーブルを$T(an)$と記述し，$i$番目の
+並列ブロック$\alabel{n}$に対する並列ブロックテーブルを$T(\alabel{n})$と記述し，$i$番目の
 エントリーには，$i$番目のブロックが実行するバイトコードの開始アドレスと
-終了アドレスを記録する．$T(an)(i)=(B,E)$は，開始アドレスが$B$で，終了
-アドレスが$E$であることを示す．$|T(an)|$は$an$から起動される並列ブロック
-の数を表し，$T(an).last$は，$an$の最後のブロックの終了アドレスを示す．
-$T(an)(|T(an)|)=(B_\ell,E_\ell)$のとき，$T(an).last=E_\ell$である．
+終了アドレスを記録する．$T(\alabel{n})(i)=(B,E)$は，開始アドレスが$B$で，終了
+アドレスが$E$であることを示す．$|T(\alabel{n})|$は$\alabel{n}$から起動される並列ブロック
+の数を表し，$T(\alabel{n}).last$は，$\alabel{n}$の最後のブロックの終了アドレスを示す．
+$T(\alabel{n})(|T(\alabel{n})|)=(B_\ell,E_\ell)$のとき，$T(\alabel{n}).last=E_\ell$である．
+%%% Yuen 0604
+逆方向に並列ブロックを実行する場合は，各ブロックの命令を逆向きに実行する．プログラム全体の
+命令の長さが$N$のとき，$T(\alabel{n})$の各エントリーを逆向きにした表を$T(\alabel{n})^{-1}_N$とする．
+$T(\alabel{n})(i)=(B_i,E_i)$のとき，$T(\alabel{n})^{-1}_N(i)=(N+1-E_i,N+1-B_i)$である．
 
-\figref{fig:parallel}に並列プロセスの生成を示す．forkによって並列
+\figref{fig:parallel}に並列プロセスの生成を示す．\bcode{fork}によって並列
 プロセスが生成，起動され，さらに生成されたプロセスから並列プロセスが生成，
-起動されている．それぞれ生成されたプロセスはその実行が終了するとmergeで
+起動されている．それぞれ生成されたプロセスはその実行が終了すると\bcode{merge}で
 生成したプロセスに実行の制御を戻していく．
 
-\figref{fig:parallel}の順方向の図と逆方向の図は赤色がfork，青色がmergeのプロセスで点線がそれぞれの対応を示
+\figref{fig:parallel}の順方向の図と逆方向の図は赤色が\bcode{fork}，
+青色が\bcode{merge}のプロセスで点線がそれぞれの対応を示
 しており順方向の\bcode{fork}，\bcode{merge}はそれぞれ逆方向では
 \bcode{merge}，\bcode{fork}に相当する．このようにして順方向と同様に並列
 プロセスを生成し並行実行する．
@@ -606,7 +635,7 @@ Idを持つプロセスがジャンプ履歴を取り出しその命令番地に
 %whileループのエントリにある
 %\bcode{w\_label}は繰返しの回数だけラベルスタックにBの最後のジャンプからの
 %記録があるので，
-\bcode{rjmp}によって，Bを逆転したコードを実行するか，whileの
+\bcode{rjmp}によって，Bを逆転したコード$\mathrm{B}^{-1}$を実行するか，whileの
 前に戻るかを決める．
 ループ構造において更新された値およびループで最後に更新された値は
 値スタックに保存される．
@@ -666,13 +695,13 @@ Idを持つプロセスがジャンプ履歴を取り出しその命令番地に
 \subsubsection{並列ブロックの逆方向の振舞い}
 
 %%%yuen 0510
-逆方向実行では順方向実行で\bcode{merge} $an$が実行された時点で，複数の抽
-象機械を生成する．ここで生成するプロセスは$an$によって決まる．ただし，並
+逆方向実行では順方向実行で\bcode{merge} $\alabel{n}$が実行された時点で，複数の抽
+象機械を生成する．ここで生成するプロセスは$\alabel{n}$によって決まる．ただし，並
 列ブロックテーブルの参照を変更する必要があるので，\bcode{fork}を修正した
-\bcode{r\_fork}命令を用いる．\bcode{r\_fork} $an$で並列ブロックを生成す
-るために並列ブロックテーブル$T(an)$を参照する際，並列テーブルに保存され
+\bcode{r\_fork}命令を用いる．\bcode{r\_fork} $\alabel{n}$で並列ブロックを生成す
+るために並列ブロックテーブル$T(\alabel{n})$を参照する際，並列テーブルに保存され
 ている各ブロックのバイトコード列の開始番地と終了番地を対応する逆方向実行
-のために入れ替える．この変換を行なったテーブルを$T(an)^{-1}$と書くことに
+のために入れ替える．この変換を行なったテーブルを$T(\alabel{n})^{-1}$と書くことに
 する．逆方向実行におけるプロセスの生成は\figref{fig:parallel}のようにネ
 スト構造を含んでいても必ず同じプロセス番号のプロセスが同じネスト構造のプ
 ロセスを生成し，逆方向の並行実行を実現する．
@@ -771,11 +800,18 @@ $(P,P',w\cdot n'\cdot n,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{op},m)
 $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{label},N)}_p$\newline
 \qquad$(P+1,P,w,\delta,\chi,\rho,\xi\cdot(p,P'),\sigma)$\newline
 \bcode{label}はラベルスタックに飛び元の番地をプッシュする．
+%\item \bcode{par}:\\
+%$(B,0,w,\rho,\xi,\sigma)\xrightarrow{(\mathsf{par},0)}_{p\cdot i}(B+1,B,w,\rho,\xi,\sigma)$\newline
+%$(E-1,P',w,\rho,\xi,\sigma)\xrightarrow{(\mathsf{par},1)}_{p\cdot i}(E,E-1,w,\rho,\xi,\sigma)$\newline
+%ここで$(B,E)=T(p)(i)$．
+%\bcode{par}は親プロセス$p$の$\chi$の名前を持つ並列ブロックテーブルの開始番地から\bcode{par}\ 0を実行し，終了番地において\bcode{par}\ 1を実行する．
 \item \bcode{par}:\\
-$(B,0,w,\rho,\xi,\sigma)\xrightarrow{(\mathsf{par},0)}_{p\cdot i}(B+1,B,w,\rho,\xi,\sigma)$\newline
-$(E-1,P',w,\rho,\xi,\sigma)\xrightarrow{(\mathsf{par},1)}_{p\cdot i}(E,E-1,w,\rho,\xi,\sigma)$\newline
-ここで$(B,E)=T(p)(i)$．
-\bcode{par}は親プロセス$p$の$\chi$の名前を持つ並列ブロックテーブルの開始番地から\bcode{par}\ 0を実行し，終了番地において\bcode{par}\ 1を実行する．
+$(B_i,0,w,\delta,\bot,\rho,\xi,\sigma)\xrightarrow{(\mathsf{par},0)}_{p\cdot i}$\\
+\hspace*{.25\linewidth} $(B_i+1,B_i,w,\delta,\bot,\rho,\xi,\sigma)$\newline
+$(E_i-1,P',w,\delta',\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{par},1)}_{p\cdot i}$\\
+\hspace*{.25\linewidth} $(E_i,E_i-1,w,\delta',\bot,\rho,\xi,\sigma)$\newline
+$\mathsf{par}\ 0$において,親プロセスから動的コンテクスト$\delta$と開始番地と終了番地の
+対$(B_i,E_i)$が受け渡される．
 %%%yuen 0510 begin
 \item \bcode{alloc}:\\
 $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{alloc},x)}_p$\newline
@@ -784,45 +820,54 @@ $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{alloc},x)}_p$\newline
 %%%yuen 0510 end
 \item \bcode{free}:\\
 $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{free},x)}_p$\newline
-\qquad $(P+1,P,w,\delta,\chi,\rho\cdot(p,lup(\sigma,\delta,x),\delta),\xi,\sigma-(\delta,x)$\newline
+\qquad $(P+1,P,w,\delta,\chi,\rho\cdot(p,lup(\sigma,\delta,x),\delta),\xi,\sigma-(\delta,x))$\newline
 \bcode{free}は変数領域の解放を行い，逆方向実行のために最後の値とパスを値スタックに記録する．
 \item \bcode{proc}:\\
-$(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{proc},pn)}_p$\newline
+$(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{proc},\plabel{n})}_p$\newline
 \qquad $(P+1,P,w\cdot P'+1,\delta\cdot pn,\chi,\rho,\xi\cdot(p,P'),\sigma)$\newline
 \bcode{proc}は手続きの始まりを表す．パスにpnを追加しlabel命令と同様にラベルスタックに一つ前のPCをプッシュする．帰り番地を保存するために一つ前のPC+1を演算スタックにプッシュする．
 \item \bcode{p\_return}:\\
-$(P,P',w\cdot a,\delta\cdot pn,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{p\_return},pn)}_p$\newline
+$(P,P',w\cdot a,\delta\cdot pn,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{p\_return},\plabel{n})}_p$\newline
 \qquad $(a+1,P,\delta,\chi,\rho,\xi,\sigma)$\newline
 \bcode{p\_return}は手続きの終了を表す．パスからpnを削除し演算スタックから帰り番地のＰＣをポップしそのPCにジャンプする．
 \item \bcode{block}:\\
-$(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{block},bn)}_p$\newline
+$(P,P',w,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{block},\blabel{n})}_p$\newline
 \qquad $(P+1,P,w,\delta\cdot bn,\chi,\rho,\xi,\sigma)$\newline
 \bcode{block}はパスに$bn$を追加する．
 \item \bcode{end}:\\
-$(P,P',w,\delta\cdot bn,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{end},bn)}_p$\newline
+$(P,P',w,\delta\cdot bn,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{end},\blabel{n})}_p$\newline
 \qquad $(P+1,P,w,\delta,\chi,\rho,\xi,\sigma)$\newline
 \bcode{end}はパスから$bn$を削除する．
 \item \bcode{fork}:\\
-$(P,P',w,\delta,\bot,\rho,\xi,\sigma)\xrightarrow{(\mathsf{fork},an)}_p$\newline
+$(P,P',w,\delta,\bot,\rho,\xi,\sigma)\xrightarrow{(\mathsf{fork},\alabel{n})}_p$\newline
 \qquad $(P'',P,w,\delta,an,\rho,\xi,\sigma)$\newline
-ここで，$P''=T(an).last+1$\\
-\bcode{fork} anは並列ブロックテーブル$T(an)$に基づいて並行プロセスを生成する．
-$T(an)(i)=(B,E)$であるとき，開始命令番地$B$とするバイトコード列を実行する$p\cdot i$をIdとする
-$|T(an)|$個の子プロセスを生成して実行する．
+ここで，$P''=T(\alabel{n}).last+1$\\
+\bcode{fork} $\alabel{n}$は並列ブロックテーブル$T(\alabel{n})$から$|T(\alabel{n})|$個の
+抽象機械を生成する．プロセス$p\cdot i$として起動される抽象機械に，動的コンテクスト$\delta$と
+開始番地と終了番地の対$(B_i,E_i)=T(\alabel{n})(i)$を引き渡す．
+%$T(\alabel{n})(i)=(B,E)$であるとき，開始命令番地$B$とするバイトコード列を実行する$p\cdot i$をIdとする
+%$|T(\alabel{n})|$個の子プロセスを生成して実行する．
+%\item \bcode{fork}:\\
+%$(P,P',w,\delta,\bot,\rho,\xi,\sigma)\xrightarrow{(\mathsf{fork},an)}_p$\newline
+%\qquad $(P'',P,w,\delta,an,\rho,\xi,\sigma)$\newline
+%ここで，$P''=T(\alabel{n}).last+1$\\
+%\bcode{fork} anは並列ブロックテーブル$T(\alabel{n})$に基づいて並行プロセスを生成する．
+%$T(\alabel{n})(i)=(B,E)$であるとき，開始命令番地$B$とするバイトコード列を実行する$p\cdot i$をIdとする
+%$|T(\alabel{n})|$個の子プロセスを生成して実行する．
 \item \bcode{merge}:\\
-$(P,P',w,\delta,\chi,\rho,an,\sigma)\xrightarrow{(\mathsf{merge},an)}_p$\newline
+$(P,P',w,\delta,\chi,\rho,an,\sigma)\xrightarrow{(\mathsf{merge},\alabel{n})}_p$\newline
 \qquad $(P+1,P,w,\delta,\bot,\rho,\bot,\sigma)$\newline
-\bcode{merge}命令は子プロセス$p\cdot i$のPCがすべて$T(an)(i)=(B_i,E_i)$の$E_i$となったときに
+\bcode{merge}命令は子プロセス$p\cdot i$のPCがすべて$T(\alabel{n})(i)=(B_i,E_i)$の$E_i$となったときに
 実行される．
 \item \bcode{func}:\\
-$(P,P',w\cdot n,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{func},fn)}_p$\newline
+$(P,P',w\cdot n,\delta,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{func},\flabel{n})}_p$\newline
 \qquad $(P+1,P,w\cdot P'+1\cdot n,\delta\cdot fn,\chi,\rho,\xi\cdot(P',p),\sigma)$\newline
 \bcode{func}は関数の始まりを表す．パスにfnを追加し，\bcode{label}命令と
       同様にラベルスタックに一つ前のPCの値をプッシュする．帰り番地を保存
       するために一つ前のＰＣの値を演算スタックにプッシュする．演算スタッ
       クに既に積まれている実引数の値を演算スタックの一番上に移動させる．
 \item \bcode{f\_return}:\\
-$(P,P',w\cdot a\cdot r,\delta\cdot pn,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{f\_return},pn)}_p$\newline
+$(P,P',w\cdot a\cdot r,\delta\cdot pn,\chi,\rho,\xi,\sigma)\xrightarrow{(\mathsf{f\_return},\plabel{n})}_p$\newline
 \qquad $(a,P,w\cdot r,\delta,\chi,\rho,\xi,\sigma)$\newline
 \bcode{f\_return}はパスから$pn$を削除し局所スタックからスタックトップの一
       つ下にある帰り番地をポップしその番地にジャンプする．
@@ -873,13 +918,22 @@ $(P,P',w,\delta,\chi,\rho\cdot(p,\delta',n),\xi,\sigma)\brightarrow{(\mathsf{res
 %$(P+1,P,w,\delta,\chi,\rho,\xi,\sigma)$\newline
 %\bcode{r\_label}は\bcode{rjmp}のターゲットとなる．
 \item \bcode{par}:\\
-$(B,0,w,\rho,\xi,\sigma)\brightarrow{(\mathsf{par},0)}_{p\cdot i}(B+1,B,w,\rho,\xi,\sigma)$\newline
-$(E-1,P',w,\rho,\xi,\sigma)\brightarrow{(\mathsf{par},1)}_{p\cdot i}(E,E-1,w,\rho,\xi,\sigma)$\newline
-ここで$T(p)(i)=(B',E')$に対して$(B,E)=(N+1-B',N+1-E')$ $r\_fork$によって起動される．
-\bcode{par}は親プロセス$p$の$\chi$の名前を持つ並列ブロックテーブルの開始番地から\bcode{par}\ 0を実行し，終了番地において\bcode{par}\ 1を実行する．
+$(B_i,0,w,\delta,\bot,\rho,\xi,\sigma)\brightarrow{(\mathsf{par},0)}_{p\cdot i}$\\
+\hspace*{.25\linewidth}$(B_i+1,B_i,w,\rho,\xi,\sigma)$\newline
+$(E-1,P',w,\delta,\bot,\rho,\xi,\sigma)\brightarrow{(\mathsf{par},1)}_{p\cdot i}$\\
+\hspace*{.25\linewidth}$(E,E-1,w,\rho,\xi,\sigma)$\newline
+\bcode{par}\ 0における並列ブロックのラベル$\alabel{n}$，動的コンテクスト$\delta$は，親プロセス$p$から
+受け渡される．$(B_i',E_i')=T(\alabel{n})(i)$に対して$B_i=N+1-B'_i$, $E_i=N+1-E'_i$として，
+\bcode{r\_fork}命令によって起動される．$B_i$からから\bcode{par}\ 0を実行し，$E_i-1$において
+\bcode{par}\ 1を実行する．
+%\item \bcode{par}:\\
+%$(B,0,w,\rho,\xi,\sigma)\brightarrow{(\mathsf{par},0)}_{p\cdot i}(B+1,B,w,\rho,\xi,\sigma)$\newline
+%$(E-1,P',w,\rho,\xi,\sigma)\brightarrow{(\mathsf{par},1)}_{p\cdot i}(E,E-1,w,\rho,\xi,\sigma)$\newline
+%ここで$T(p)(i)=(B',E')$に対して$(B,E)=(N+1-B',N+1-E')$ $r\_fork$によって起動される．
+%\bcode{par}は親プロセス$p$の$\chi$の名前を持つ並列ブロックテーブルの開始番地から\bcode{par}\ 0を実行し，終了番地において\bcode{par}\ 1を実行する．
 %%%yuen 0510 begin
 \item \bcode{r\_alloc}:\\\relax
-$(P,P',w,\delta,\chi,\rho\cdot(p,\delta',n),\xi,\sigma)\xrightarrow{(\mathsf{r\_alloc},x)}_p$\newline
+$(P,P',w,\delta,\chi,\rho\cdot(p,\delta',n),\xi,\sigma)\brightarrow{(\mathsf{r\_alloc},x)}_p$\newline
 \qquad $(P+1,P,w,\delta,\chi,\rho,upd(\sigma,\delta',x,n))$\newline
 \bcode{r\_alloc}は，値スタックからブロックが終了した時点の参照パスと値を取り出して復元する．
 %%%yuen 0510 end
@@ -904,19 +958,27 @@ $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\brightarrow{(\mathsf{free},x)}_p$\newline
 %\qquad $(P+1,P,w,\delta,\chi,\rho,\xi,\sigma)$\newline
 %endはパスからbnを削除する．
 \item \bcode{r\_fork}:\\
-$(P,P',w,\delta,\bot,\rho,\bot,\sigma)\brightarrow{(\mathsf{fork},an)}_p$\newline
-\qquad $(P'',P,w,\delta,an,\rho,\xi,\sigma)$\newline
-ここで，$P''=T(an)^{-1}_N.last+1$\\
-\bcode{r\_fork} $an$は並列ブロックテーブル$T(an)$を逆方向のために変換した
-$T(an)^{-1}_N$に基づいて子プロセスを生成する．ここで，$T(an)^{-1}_N$は以下のように
-得られる．
-$T(an)(i)=(B,E)$であるとき$T(an)^{-1}_N(i)=(N+1-E,N+1-B)$.
-$T(an)^{-1}_N$は$an$に属するプログラムブロックの開始命令番地と終了命令番地を入れかえて
-得られる並行ブロックテーブルである．
+$(P,P',w,\delta,\bot,\rho,\bot,\sigma)\brightarrow{(\mathsf{fork},\alabel{n})}_p$\newline
+\qquad $(P'',P,w,\delta,\alabel{n},\rho,\xi,\sigma)$\newline
+ここで，$P''=T(\alabel{n})^{-1}_N.last+1$\\
+\bcode{r\_fork}\ $\alabel{n}$は$|T(\alabel{n})|$個の
+子プロセスを生成する．このとき，プロセス$p\cdot i$として起動する抽象機械に
+動的コンテクスト$\delta$と開始番地と終了番地の対$(B_i,E_i)=T(\alabel)^{-1}_N(i)$を
+引き渡す．
+%\item \bcode{r\_fork}:\\
+%$(P,P',w,\delta,\bot,\rho,\bot,\sigma)\brightarrow{(\mathsf{fork},\alabel{n})}_p$\newline
+%\qquad $(P'',P,w,\delta,\alabel{n},\rho,\xi,\sigma)$\newline
+%ここで，$P''=T(\alabel{n})^{-1}_N.last+1$\\
+%\bcode{r\_fork} $\alabel{n}$は並列ブロックテーブル$T(\alabel{n})$を逆方向のために変換した
+%$T(\alabel{n})^{-1}_N$に基づいて子プロセスを生成する．ここで，$T(\alabel{n})^{-1}_N$は以下のように
+%得られる．
+%$T(\alabel{n})(i)=(B,E)$であるとき$T(\alabel{n})^{-1}_N(i)=(N+1-E,N+1-B)$.
+%$T(\alabel{n})^{-1}_N$は$\alabel{n}$に属するプログラムブロックの開始命令番地と終了命令番地を入れかえて
+%得られる並行ブロックテーブルである．
 \item \bcode{merge}:\\
 $(P,P',w,\delta,\chi,\rho,an,\sigma)\brightarrow{(\mathsf{merge},an)}_p$\newline
 \qquad $(P+1,P,w,\delta,\bot,\rho,an,\sigma)$\newline
-\bcode{merge}命令は子プロセス$p\cdot i$のPCがすべて$T(an)^{-1}_N(i)=(B_i,E_i)$の$E_i$となったときに実行される．
+\bcode{merge}命令は子プロセス$p\cdot i$のPCがすべて$T(\alabel{n})^{-1}_N(i)=(B_i,E_i)$の$E_i$となったときに実行される．
 %\item \bcode{r\_w\_label}:
 %\item \bcode{r\_w\_end}:
 \item \bcode{nop}:\\
@@ -1027,12 +1089,11 @@ $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\brightarrow{(\mathsf{nop},0)}_p$\newline
 \label{fig:backward}
 \end{figure}
 
+\figref{fig:sample}を順方向実行のバイトコードに変換すると\figref{fig:bytecode}になる．
+左端の数字はPC（プログラムカウンタ）を表し（命令，被演算子）というように抽象機械命令が表示されている．
 
-
-
-\figref{fig:sample}を順方向実行のバイトコードに変換すると\figref{fig:bytecode}になる．左端の数字はPC（プログラムカウンタ）を表し（命令，被演算子）というように抽象機械命令が表示されている．
-
-\figref{fig:bytecode}の抽象機械命令を一対一で変換し順序を反転させたものが\figref{fig:backward}の逆方向実行のバイトコードである．これを用いて順方向実行の実行を逆に辿る実行を行う．
+\figref{fig:bytecode}の抽象機械命令を一対一で変換し順序を反転させたものが\figref{fig:backward}の
+逆方向実行のバイトコードである．これを用いて順方向実行の実行を逆に辿る実行を行う．
 
 \subsection{プログラム例}
 
@@ -1040,17 +1101,17 @@ $(P,P',w,\delta,\chi,\rho,\xi,\sigma)\brightarrow{(\mathsf{nop},0)}_p$\newline
 換したものであり，\figref{fig:backward}は\figref{fig:bytecode}を命令を一
 対一で置換し順番を反転させた逆方向実行のバイトコードである．
 \figref{fig:bytecode}のPC=17からPC=20の実行とPC=45からPC=48の実行がそれ
-ぞれ\figref{fig:sample}の9行目，18行目に対応している．この部分がseats=1
-の状態で並列実行され同時に実行されるとseats=-1になる不正な動作を起こす可
+ぞれ\figref{fig:sample}の9行目，18行目に対応している．この部分が\texttt{seats=1}
+の状態で並列実行され同時に実行されると\texttt{seats=-1}になる不正な動作を起こす可
 能性がある．
 
 \figref{fig:backward}のバイトコード列がこの実行を逆方向に辿ることを示す．
 ラベルスタッ
 ク，値スタックを使って逆方向実行を進めていくと順方向実行のバイトコードの
-PC=26（store命令）を変換したPC=55のrestore命令もしくは順方向実行のバイト
-コードのPC=54（store命令）を変換したPC=27のrestore命令においてseatsの値
-が-1から0に戻される．これによってseatsが0より大きいという条件判定で
-seats=seats-1の処理をしたにもかかわらずseatsの値がすでに0になってしまっ
+PC=26（\bcode{store}命令）を変換したPC=55の\bcode{restore}命令もしくは順方向実行のバイト
+コードのPC=54（\bcode{store}命令）を変換したPC=27の\bcode{restore}命令において\texttt{seats}の値
+が-1から0に戻される．これによって\texttt{seats}が0より大きいという条件判定で
+\texttt{seats=seats-1}の処理をしたにもかかわらず\texttt{seats}の値がすでに0になってしまっ
 ていて不正に1引いてしまった部分がどこであるかを特定することができる．
 
 %5
@@ -1077,10 +1138,10 @@ multiprocessingモジュールのprocess関数を用いて生成する．この�
 本研究で実装した可逆実行環境の実行例を示す．\figref{fig:target}の対象プ
 ログラムを順方向実行しその実行を逆に辿る実行をすることを考える．
 \figref{fig:target}のプログラムは3の階乗を計算するプログラムで，関数
-bug\_fact(x)は再帰的に計算を行いxの階乗を返す関数である．しかし
-bug\_fact(x)は並列に二つのプロセスを実行し一つのプロセスは順当に階乗の計
+\texttt{bug\_fact(x)}は再帰的に計算を行いxの階乗を返す関数である．しかし
+\texttt{bug\_fact(x)}は並列に二つのプロセスを実行し一つのプロセスは順当に階乗の計
 算を再帰的に行う．もう一つのプロセスは順当に行う階乗の計算を妨害するよう
-に仮引数xの値をいずれかのタイミングで1引くプロセスとなっている．この妨害
+に仮引数\texttt{x}の値をいずれかのタイミングで1引くプロセスとなっている．この妨害
 プロセスがどのタイミングで行われるかによって階乗計算の結果と再帰する数及
 び並列プロセスの生成数が異なる例となっている．
 
@@ -1119,8 +1180,8 @@ bug\_fact(x)は並列に二つのプロセスを実行し一つのプロセス�
 \hbox{\|end|}
 }
 \centerline{\fbox{\box0}}
-\caption{対象プログラム（bug\_fact）}
-\ecaption{a target program(bug\_fact)}
+\caption{対象プログラム（\texttt{bug\_fact}）}
+\ecaption{a target program(\texttt{bug\_fact})}
 \label{fig:target}
 \end{figure}
 
@@ -1168,8 +1229,8 @@ bug\_fact(x)は並列に二つのプロセスを実行し一つのプロセス�
 
 }
 \centerline{\fbox{\box0}}
-\caption{順方向実行のバイトコード（bug\_fact）}
-\ecaption{a byte code of forward execution(bug\_fact)}
+\caption{順方向実行のバイトコード（\texttt{bug\_fact}）}
+\ecaption{a byte code of forward execution(\texttt{bug\_fact})}
 \label{fig:forwardfact}
 \end{figure}
 
@@ -1212,8 +1273,8 @@ bug\_fact(x)は並列に二つのプロセスを実行し一つのプロセス�
 \hbox{\|3 0.b1.E|}
 }
 \centerline{\fbox{\box0}}
-\caption{値スタック（bug\_fact）}
-\ecaption{value stack(bug\_fact)}
+\caption{値スタック（\texttt{bug\_fact}）}
+\ecaption{value stack(\texttt{bug\_fact})}
 \label{fig:value}
 \end{figure}
 
@@ -1246,8 +1307,8 @@ bug\_fact(x)は並列に二つのプロセスを実行し一つのプロセス�
 \hbox{\|63 0|}
 }
 \centerline{\fbox{\box0}}
-\caption{ラベルスタック（bug\_fact）}
-\ecaption{label stack(bug\_fact)}
+\caption{ラベルスタック（\texttt{bug\_fact}）}
+\ecaption{label stack(\texttt{bug\_fact})}
 \label{fig:label}
 \end{figure}
 
@@ -1256,13 +1317,13 @@ bug\_fact(x)は並列に二つのプロセスを実行し一つのプロセス�
 \figref{fig:label}のように値スタック，ラベルスタックに逆方向実行に必要な
 情報が保存される．\figref{fig:value}は値スタックを示し，一行のうち左側に
 変数の値，右側に\bcode{store}命令，\bcode{free}命令を行ったプロセスとパ
-スが保存されている．例えば一行目の(0 0.b1.E)はプロセス0のパスb1の状態で
+スが保存されている．例えば一行目の(0 0.$\blabel{1}$.E)はプロセス0のパス$\blabel{1}$の状態で
 何らかの変数の値を更新しその変数のそれまでの値が0であったことを示す．プ
 ロセス0.1，プロセス0.2は並列で動作しているプロセスだが三行目，四行目を見
 るとその実行順がプロセス0.2，プロセス0.1の順番で実行されたことが保存され
 ている．\figref{fig:label}はラベルスタックを示し，一行のうち左側にジャン
-プしたPCの値，右側にlabel命令を行ったプロセスIDが保存されている．例えば
-一行目の(4 0)はプロセス0がPC=4の命令からlabel命令にジャンプしてき
+プしたPCの値，右側に\bcode{label}命令を行ったプロセスIDが保存されている．例えば
+一行目の(4 0)はプロセス0がPC=4の命令から\bcode{label}命令にジャンプしてき
 たことを示す．特に条件分岐について条件判定を行わずともどこから分岐したか
 という情報が残されているためラベルスタックを見るだけでどのように分岐した
 かがわかる．
@@ -1314,12 +1375,19 @@ bug\_fact(x)は並列に二つのプロセスを実行し一つのプロセス�
 \label{fig:backwardfact}
 \end{figure}
 
+\figref{fig:forwardfact}の抽象命令を一対一で変換し順番を反転させたものが\figref{fig:backwardfact}である．
+変数の宣言，更新，解放やジャンプそして並列ブロックに関わる命令以外は全て\bcode{nop}に変換されている．
+これは本研究における逆方向実行は変数の値を元に戻すということを主目的としているためである．
+そのため演算スタックを元に戻すという動作が存在しない．
 
-
-\figref{fig:forwardfact}の抽象命令を一対一で変換し順番を反転させたものが\figref{fig:backwardfact}である．変数の宣言，更新，解放やジャンプそして並列ブロックに関わる命令以外は全てnopに変換されている．これは本研究における逆方向実行は変数の値を元に戻すということを主目的としているためである．そのため演算スタックを元に戻すという動作が存在しない．
-
-\figref{fig:backwardfact}の逆方向実行バイトコードと\figref{fig:value}，\figref{fig:label}の逆方向実行に必要な情報を用いて順方向の実行を逆方向に辿る．\figref{fig:value}と\figref{fig:label}の下から保存した情報を消費していく．それぞれrestore命令とrjmp命令においてプロセス番号が一致しているか否かを判定し一致している場合左側の値を消費して変数の値を戻したりジャンプを逆方向に辿っていく．プロセス番号が一致していない場合そのプロセスの実行は待ち状態になり別プロセスが実行を進める．このようにして順方向で実行した順番とちょうど逆順に変数の更新と逆方向ジャンプを行う．
-
+\figref{fig:backwardfact}の逆方向実行バイトコードと\figref{fig:value}，\figref{fig:label}の
+逆方向実行に必要な情報を用いて順方向の実行を逆方向に辿る．\figref{fig:value}と
+\figref{fig:label}の下から保存した情報を消費していく．それぞれ\bcode{restore}命令と
+\bcode{rjmp}命令においてプロセス番号が
+一致しているか否かを判定し一致している場合左側の値を消費して変数の値を戻したりジャンプを
+逆方向に辿っていく．プロセス番号が一致していない場合そのプロセスの実行は待ち状態になり
+別プロセスが実行を進める．このようにして順方向で実行した順番とちょうど逆順に変数の更新と
+逆方向ジャンプを行う．
 
 \section{関連研究}
 
@@ -1436,8 +1504,8 @@ Hoeyらは，本発表と同様な並列プログラミング言語を可逆的�
 %\figref{fig:Horiginal}のプログラムから\figref{fig:Hannotated}のプログラ
 %ムがAnnotatedプログラムの変換規則に則って生成される．
 ここで手続きp1内
-のステートメントはブロックb1内のブロックb2に存在しているのでこれらのステー
-トメントのパスはb2*b1に変換する．ここでAはそれぞれのステー
+のステートメントはブロック$\blabel{1}$内のブロック$\blabel{2}$に存在しているのでこれらのステー
+トメントのパスは$\blabel{2}\ast\blabel{1}$に変換する．ここでAはそれぞれのステー
 トメントに識別子を書き込むためのスタックである．
 
 \begin{figure}[tb]
@@ -1465,8 +1533,9 @@ Hoeyらは，本発表と同様な並列プログラミング言語を可逆的�
 \figref{fig:Hannotated}を実行すると\figref{fig:Hexec}のようにプログラム
 自体にAnnotation及びパスが書き込まれる．\figref{fig:Hexec}は2回目の手続
 き呼び出しのブロック自体をコピーしてAnnotationとパスを書き込んでいる．
-ここで変数T=0がvarステートメントで宣言されているが，この変数は
-c1:c2:b2*b1のTとして扱われる．このようにして変数を宣言する際にパスを要素
+ここで変数\texttt{T}が\texttt{var}ステートメントで宣言されているが，この変数は
+$\clabel{1}:\clabel{2}:\blabel{2}\ast\blabel{1}$の\texttt{T}として扱われる．
+このようにして変数を宣言する際にパスを要素
 に組み込むことで局所変数を実現している．
 
 %\subsection{Inverted プログラム}
